@@ -1,0 +1,46 @@
+.header {
+    padding: 20px 0;
+    background-color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #262626;
+}
+
+.container nav,
+.auth {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.container a {
+    text-decoration: none;
+}
+
+.container a:hover {
+    color: #f6b83d;
+}
+
+@media (max-width: 767px) {
+
+    .container nav,
+    .auth {
+        display: none;
+    }
+}
