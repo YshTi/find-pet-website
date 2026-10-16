@@ -38,3 +38,25 @@ img {
     margin: 0 auto;
     padding: 0 20px;
 }
+
+
+.container {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 0 32px;
+    }
+}
+
+/* Desktop */
+@media screen and (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+        padding: 0 32px;
+    }
+}
