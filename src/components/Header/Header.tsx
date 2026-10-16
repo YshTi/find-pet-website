@@ -4,9 +4,7 @@ import { useAppSelector } from '../../redux/hooks';
 import styles from './Header.module.css';
 
 export default function Header() {
-  const isLoggedIn = useAppSelector(
-    (state) => state.auth.isLoggedIn,
-  );
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   return (
     <header className={styles.header}>

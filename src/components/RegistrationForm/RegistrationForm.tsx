@@ -1,8 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-const emailRegex =
-  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
@@ -70,33 +69,21 @@ export default function RegistrationForm() {
 
           <div>
             <label htmlFor="password">Password</label>
-            <Field
-              id="password"
-              name="password"
-              type="password"
-            />
+            <Field id="password" name="password" type="password" />
             <ErrorMessage name="password" component="p" />
           </div>
 
           <div>
-            <label htmlFor="confirmPassword">
-              Confirm password
-            </label>
+            <label htmlFor="confirmPassword">Confirm password</label>
             <Field
               id="confirmPassword"
               name="confirmPassword"
               type="password"
             />
-            <ErrorMessage
-              name="confirmPassword"
-              component="p"
-            />
+            <ErrorMessage name="confirmPassword" component="p" />
           </div>
 
-          <button
-            type="submit"
-            disabled={!dirty || !isValid}
-          >
+          <button type="submit" disabled={!dirty || !isValid}>
             Registration
           </button>
         </Form>
