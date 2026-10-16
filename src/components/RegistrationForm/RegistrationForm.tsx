@@ -1,13 +1,33 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
+import { LuEye, LuCheck } from 'react-icons/lu';
 
-const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+import Icon from '../Icon/Icon';
+import styles from './RegistrationForm.module.css';
+
+interface FormValues {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const initialValues: FormValues = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
+const emailRegex =
+  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
 
   email: Yup.string()
-    .matches(emailRegex, 'Invalid email format')
+    .matches(emailRegex, 'Enter a valid Email')
     .required('Email is required'),
 
   password: Yup.string()
@@ -16,35 +36,115 @@ const validationSchema = Yup.object({
 
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Please confirm your password'),
+    .required('Confirm your password'),
 });
 
-interface RegistrationValues {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+type PasswordFieldName = 'password' | 'confirmPassword';
+
+interface PasswordInputProps {
+  name: PasswordFieldName;
+  placeholder: string;
+  value: string;
+  hasError: boolean;
+  isValid: boolean;
+  error?: string;
+  showPassword: boolean;
+  onToggle: () => void;
 }
 
-const initialValues: RegistrationValues = {
-  name: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
+function PasswordInput({
+  name,
+  placeholder,
+  value,
+  hasError,
+  isValid,
+  error,
+  showPassword,
+  onToggle,
+}: PasswordInputProps) {
+  const feedbackId = `${name}-feedback`;
+
+  return (
+    <div className={styles.fieldGroup}>
+      <div className={styles.passwordWrapper}>
+        <Field
+          id={name}
+          name={name}
+          type={showPassword ? 'text' : 'password'}
+          placeholder={placeholder}
+          autoComplete="new-password"
+          aria-label={placeholder}
+          aria-invalid={hasError}
+          aria-describedby={
+            hasError || isValid ? feedbackId : undefined
+          }
+          className={`${styles.input} ${
+            hasError ? styles.error : isValid ? styles.valid : ''
+          } ${!showPassword && value ? styles.maskedInput : ''}`}
+        />
+
+        {!showPassword && value && (
+          <span className={styles.stars} aria-hidden="true">
+            {'*'.repeat(value.length)}
+          </span>
+        )}
+
+        <div className={styles.passwordIcons}>
+          {isValid && (
+            <LuCheck
+              size={20}
+              className={styles.checkIcon}
+              aria-hidden="true"
+            />
+          )}
+
+          <button
+            type="button"
+            className={styles.eyeButton}
+            onClick={onToggle}
+            aria-label={
+              showPassword
+                ? `Hide ${placeholder.toLowerCase()}`
+                : `Show ${placeholder.toLowerCase()}`
+            }
+            aria-pressed={showPassword}
+          >
+            {showPassword ? (
+              <LuEye size={20} />
+            ) : (
+              <Icon name="icon-eye-off" size={20} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {hasError && (
+        <p id={feedbackId} className={styles.errorText}>
+          {error}
+        </p>
+      )}
+
+      {isValid && (
+        <p id={feedbackId} className={styles.successText}>
+          {name === 'password'
+            ? 'Password is secure'
+            : 'Passwords match'}
+        </p>
+      )}
+    </div>
+  );
+}
 
 export default function RegistrationForm() {
-  const handleSubmit = (values: RegistrationValues) => {
-    const { confirmPassword, ...registrationData } = values;
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
 
-    void confirmPassword;
+  const handleSubmit = (values: FormValues) => {
+    const { name, email } = values;
 
-    console.log('Validated registration data:', {
-      name: registrationData.name,
-      email: registrationData.email,
-    });
-
-    // Connect registration API here.
+    // Replace with the registration API request.
+    console.log('Validated registration data:', { name, email });
   };
 
   return (
@@ -52,42 +152,177 @@ export default function RegistrationForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
+      validateOnBlur
+      validateOnChange
     >
-      {({ isValid, dirty }) => (
-        <Form noValidate>
-          <div>
-            <label htmlFor="name">Name</label>
-            <Field id="name" name="name" type="text" />
-            <ErrorMessage name="name" component="p" />
-          </div>
+      {({ values, errors, touched, isSubmitting }) => {
+        const nameError = Boolean(touched.name && errors.name);
+        const emailError = Boolean(touched.email && errors.email);
 
-          <div>
-            <label htmlFor="email">Email</label>
-            <Field id="email" name="email" type="email" />
-            <ErrorMessage name="email" component="p" />
-          </div>
+        const passwordError = Boolean(
+          touched.password && errors.password,
+        );
 
-          <div>
-            <label htmlFor="password">Password</label>
-            <Field id="password" name="password" type="password" />
-            <ErrorMessage name="password" component="p" />
-          </div>
+        const confirmPasswordError = Boolean(
+          touched.confirmPassword && errors.confirmPassword,
+        );
 
-          <div>
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <Field
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
+        const nameValid = Boolean(
+          touched.name && values.name && !errors.name,
+        );
+
+        const emailValid = Boolean(
+          touched.email && values.email && !errors.email,
+        );
+
+        const passwordValid = Boolean(
+          touched.password &&
+            values.password &&
+            !errors.password,
+        );
+
+        const confirmPasswordValid = Boolean(
+          touched.confirmPassword &&
+            values.confirmPassword &&
+            !errors.confirmPassword,
+        );
+
+        return (
+          <Form className={styles.form} noValidate>
+            <div className={styles.fieldGroup}>
+              <div className={styles.inputWrapper}>
+                <Field
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  autoComplete="name"
+                  aria-label="Name"
+                  aria-invalid={nameError}
+                  aria-describedby={
+                    nameError ? 'name-feedback' : undefined
+                  }
+                  className={`${styles.input} ${
+                    nameError
+                      ? styles.error
+                      : nameValid
+                        ? styles.valid
+                        : ''
+                  }`}
+                />
+
+                {nameError && (
+                  <Icon
+                    name="icon-cross"
+                    size={20}
+                    className={styles.crossIcon}
+                  />
+                )}
+
+                {nameValid && (
+                  <LuCheck
+                    size={20}
+                    className={styles.checkIconAbsolute}
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
+
+              {nameError && (
+                <p
+                  id="name-feedback"
+                  className={styles.errorText}
+                >
+                  {errors.name}
+                </p>
+              )}
+            </div>
+
+            <div className={styles.fieldGroup}>
+              <div className={styles.inputWrapper}>
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  autoComplete="email"
+                  aria-label="Email"
+                  aria-invalid={emailError}
+                  aria-describedby={
+                    emailError ? 'email-feedback' : undefined
+                  }
+                  className={`${styles.input} ${
+                    emailError
+                      ? styles.error
+                      : emailValid
+                        ? styles.valid
+                        : ''
+                  }`}
+                />
+
+                {emailError && (
+                  <Icon
+                    name="icon-cross"
+                    size={20}
+                    className={styles.crossIcon}
+                  />
+                )}
+
+                {emailValid && (
+                  <LuCheck
+                    size={20}
+                    className={styles.checkIconAbsolute}
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
+
+              {emailError && (
+                <p
+                  id="email-feedback"
+                  className={styles.errorText}
+                >
+                  {errors.email}
+                </p>
+              )}
+            </div>
+
+            <PasswordInput
+              name="password"
+              placeholder="Password"
+              value={values.password}
+              hasError={passwordError}
+              isValid={passwordValid}
+              error={errors.password}
+              showPassword={showPassword}
+              onToggle={() =>
+                setShowPassword((previous) => !previous)
+              }
             />
-            <ErrorMessage name="confirmPassword" component="p" />
-          </div>
 
-          <button type="submit" disabled={!dirty || !isValid}>
-            Registration
-          </button>
-        </Form>
-      )}
+            <PasswordInput
+              name="confirmPassword"
+              placeholder="Confirm password"
+              value={values.confirmPassword}
+              hasError={confirmPasswordError}
+              isValid={confirmPasswordValid}
+              error={errors.confirmPassword}
+              showPassword={showConfirmPassword}
+              onToggle={() =>
+                setShowConfirmPassword((previous) => !previous)
+              }
+            />
+
+            <button
+              type="submit"
+              className={styles.submitButton}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Registering...' : 'Registration'}
+            </button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }

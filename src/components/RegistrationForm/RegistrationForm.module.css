@@ -1,0 +1,206 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.fieldGroup {
+    width: 100%;
+}
+
+.inputWrapper,
+.passwordWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    height: 42px;
+    padding: 0 44px 0 12px;
+
+    border: 1px solid rgba(38, 38, 38, 0.15);
+    border-radius: 30px;
+
+    background-color: transparent;
+    color: var(--color-text, #262626);
+
+    font-family: var(--font-family, 'Manrope', sans-serif);
+    font-size: 14px;
+    font-weight: 500;
+
+    outline: none;
+    transition: border-color 200ms ease;
+}
+
+.input::placeholder {
+    color: rgba(38, 38, 38, 0.5);
+}
+
+.input:focus {
+    border-color: var(--color-primary, #f6b83d);
+}
+
+.input.error,
+.input.error:focus {
+    border-color: var(--color-error, #ef2447);
+}
+
+.input.valid,
+.input.valid:focus {
+    border-color: var(--color-success, #00b38a);
+}
+
+.maskedInput {
+    color: transparent;
+    caret-color: var(--color-text, #262626);
+}
+
+.maskedInput::selection {
+    background: rgba(246, 184, 61, 0.2);
+}
+
+.stars {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+
+    max-width: calc(100% - 100px);
+    overflow: hidden;
+
+    color: var(--color-text, #262626);
+    font-family: var(--font-family, 'Manrope', sans-serif);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+.crossIcon,
+.checkIconAbsolute {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.crossIcon {
+    color: var(--color-error, #ef2447);
+}
+
+.checkIconAbsolute {
+    color: var(--color-success, #00b38a);
+}
+
+.passwordIcons {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checkIcon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-success, #00b38a);
+}
+
+.eyeButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    padding: 0;
+
+    border: none;
+    background: transparent;
+
+    color: var(--color-primary, #f6b83d);
+    cursor: pointer;
+}
+
+.eyeButton svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.eyeButton:focus-visible {
+    outline: 2px solid var(--color-primary, #f6b83d);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+.errorText,
+.successText {
+    margin: 4px 0 0 12px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.errorText {
+    color: var(--color-error, #ef2447);
+}
+
+.successText {
+    color: var(--color-success, #00b38a);
+}
+
+.submitButton {
+    width: 100%;
+    height: 42px;
+    margin-top: 14px;
+
+    border: none;
+    border-radius: 30px;
+
+    background-color: var(--color-primary, #f6b83d);
+    color: var(--color-white, #ffffff);
+
+    font-family: var(--font-family, 'Manrope', sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    cursor: pointer;
+    transition: background-color 200ms ease;
+}
+
+.submitButton:hover {
+    background-color: var(--color-primary-hover, #f9b020);
+}
+
+.submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media screen and (min-width: 768px) {
+
+    .input,
+    .submitButton {
+        height: 52px;
+        font-size: 16px;
+    }
+
+    .stars {
+        font-size: 18px;
+    }
+}

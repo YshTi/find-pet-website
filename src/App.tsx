@@ -4,15 +4,15 @@ import MainLayout from './layouts/MainLayout';
 import PrivateRoute from './router/PrivateRoute';
 import RestrictedRoute from './router/RestrictedRoute';
 
-import HomePage from './pages/HomePage';
-import NewsPage from './pages/NewsPage';
-import NoticesPage from './pages/NoticesPage';
-import FriendsPage from './pages/FriendsPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
-import ProfilePage from './pages/ProfilePage';
-import AddPetPage from './pages/AddPetPage';
-import NotFoundPage from './pages/NotFoundPage';
+import HomePage from './pages/HomePage/HomePage';
+import NewsPage from './pages/NewsPage/NewsPage';
+import NoticesPage from './pages/NoticesPage/NoticesPage';
+import FriendsPage from './pages/FriendsPage/FriendsPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import AddPetPage from './pages/AddPetPage/AddPetPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 export default function App() {
   return (

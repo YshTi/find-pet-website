@@ -17,7 +17,7 @@ export default function Icon({
       aria-hidden="true"
       {...props}
     >
-      <use href={`/icons/sprite.svg#${name}`} />
+      <use href={`/public/sprite.svg#${name}`} />
     </svg>
   );
 }
