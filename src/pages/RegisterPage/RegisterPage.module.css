@@ -9,6 +9,7 @@
 .formCard {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     
     border-radius: 30px;
     background: var(--color-white);
@@ -23,7 +24,7 @@
     letter-spacing: -0.02em;
 }
 
-.loginText {
+.cardText {
     display: flex;
     margin-top: 12px;
     
@@ -36,7 +37,7 @@
     justify-content: center;
 }
 
-.loginLink {
+.cardLink {
     margin-left: 3px;
     font-weight: 700;
     text-decoration: underline;
@@ -58,7 +59,7 @@
         margin: 16px 0 32px 0;
     }
 
-    .loginText {
+    .cardText {
         font-size: 14px;
         margin-top: 16px;
     }

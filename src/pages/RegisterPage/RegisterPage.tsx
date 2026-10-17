@@ -22,6 +22,7 @@ export default function RegisterPage() {
             birthday: '18.10.2021',
             description:
               'Jack is a gray Persian cat with green eyes. He loves to be pampered and groomed, and enjoys playing with toys.',
+            avatar: '/images/cat-icon.webp',
           }}
         />
 
@@ -35,9 +36,9 @@ export default function RegisterPage() {
 
             <RegistrationForm />
 
-            <p className={styles.loginText}>
+            <p className={styles.cardText}>
               Already have an account?{' '}
-              <Link to="/login" className={styles.loginLink}>
+              <Link to="/login" className={styles.cardLink}>
                 Login
               </Link>
             </p>

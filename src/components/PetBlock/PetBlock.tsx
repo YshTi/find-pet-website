@@ -6,6 +6,7 @@ interface PetInfoData {
   name: string;
   birthday: string;
   description: string;
+  avatar: string;
 }
 
 interface PetBlockProps {
@@ -35,19 +36,19 @@ export default function PetBlock({
           src={image}
           alt={alt}
           className={styles.image}
-          width={506}
-          height={505}
           decoding="async"
         />
       </div>
 
       {petInfo && (
-        <PetInfo
-          name={petInfo.name}
-          birthday={petInfo.birthday}
-          description={petInfo.description}
-          className={styles.petInfo}
-        />
+        <div className={styles.petInfo}>
+          <PetInfo
+            name={petInfo.name}
+            birthday={petInfo.birthday}
+            description={petInfo.description}
+            avatar={petInfo.avatar}
+          />
+        </div>
       )}
     </div>
   );
