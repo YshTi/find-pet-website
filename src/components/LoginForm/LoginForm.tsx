@@ -2,9 +2,17 @@ import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { LuEye, LuCheck } from 'react-icons/lu';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
+
+import { useAppDispatch } from '../../redux/hooks';
+import { setCredentials } from '../../redux/auth/authSlice';
+import { loginUser } from '../../services/authApi';
+import { api } from '../../services/api';
 
 import styles from './LoginForm.module.css';
 
@@ -18,7 +26,8 @@ const initialValues: LoginValues = {
   password: '',
 };
 
-const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex =
+  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -33,9 +42,53 @@ const validationSchema = Yup.object({
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (values: LoginValues) => {
-    // Replace with the login API request.
-    console.log('Validated login email:', values.email);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values: LoginValues) => {
+    try {
+      const response = await loginUser({
+        email: values.email.trim(),
+        password: values.password,
+      });
+
+      // Set token for authenticated API requests.
+      api.defaults.headers.common.Authorization =
+        `Bearer ${response.token}`;
+
+      // Update Redux authentication state.
+      dispatch(
+        setCredentials({
+          user: response.user,
+          token: response.token,
+        }),
+      );
+
+      toast.success('Successfully logged in!');
+
+      navigate('/profile', { replace: true });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const apiMessage = error.response?.data?.message;
+
+        const message =
+          typeof apiMessage === 'string'
+            ? apiMessage
+            : error.response?.status === 401
+              ? 'Incorrect email or password'
+              : error.response?.status === 404
+                ? 'Account not found'
+                : 'Login failed. Please try again.';
+
+        toast.error(message);
+      } else {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : 'Something went wrong. Please try again.',
+        );
+      }
+    }
   };
 
   return (
@@ -46,17 +99,33 @@ export default function LoginForm() {
       validateOnBlur
       validateOnChange
     >
-      {({ values, errors, touched, isSubmitting }) => {
-        const emailError = Boolean(touched.email && errors.email);
-
-        const emailValid = Boolean(
-          touched.email && values.email && !errors.email,
+      {({
+        values,
+        errors,
+        touched,
+        submitCount,
+        isSubmitting,
+      }) => {
+        const emailError = Boolean(
+          (touched.email || submitCount > 0) &&
+          errors.email,
         );
 
-        const passwordError = Boolean(touched.password && errors.password);
+        const emailValid = Boolean(
+          touched.email &&
+          values.email &&
+          !errors.email,
+        );
+
+        const passwordError = Boolean(
+          (touched.password || submitCount > 0) &&
+          errors.password,
+        );
 
         const passwordValid = Boolean(
-          touched.password && values.password && !errors.password,
+          touched.password &&
+          values.password &&
+          !errors.password,
         );
 
         return (
@@ -72,10 +141,16 @@ export default function LoginForm() {
                   aria-label="Email"
                   aria-invalid={emailError}
                   aria-describedby={
-                    emailError ? 'login-email-feedback' : undefined
+                    emailError
+                      ? 'login-email-feedback'
+                      : undefined
                   }
                   className={`${styles.input} ${
-                    emailError ? styles.error : emailValid ? styles.valid : ''
+                    emailError
+                      ? styles.error
+                      : emailValid
+                        ? styles.valid
+                        : ''
                   }`}
                 />
 
@@ -95,7 +170,11 @@ export default function LoginForm() {
               </div>
 
               {emailError && (
-                <p id="login-email-feedback" className={styles.errorText}>
+                <p
+                  id="login-email-feedback"
+                  className={styles.errorText}
+                  role="alert"
+                >
                   {errors.email}
                 </p>
               )}
@@ -123,12 +202,17 @@ export default function LoginForm() {
                         ? styles.valid
                         : ''
                   } ${
-                    !showPassword && values.password ? styles.maskedInput : ''
+                    !showPassword && values.password
+                      ? styles.maskedInput
+                      : ''
                   }`}
                 />
 
                 {!showPassword && values.password && (
-                  <span className={styles.stars} aria-hidden="true">
+                  <span
+                    className={styles.stars}
+                    aria-hidden="true"
+                  >
                     {'*'.repeat(values.password.length)}
                   </span>
                 )}
@@ -144,29 +228,45 @@ export default function LoginForm() {
                   <button
                     type="button"
                     className={styles.eyeButton}
-                    onClick={() => setShowPassword((previous) => !previous)}
+                    onClick={() =>
+                      setShowPassword(
+                        (previous) => !previous,
+                      )
+                    }
                     aria-label={
-                      showPassword ? 'Hide password' : 'Show password'
+                      showPassword
+                        ? 'Hide password'
+                        : 'Show password'
                     }
                     aria-pressed={showPassword}
                   >
                     {showPassword ? (
                       <LuEye className={styles.iconSize} />
                     ) : (
-                      <Icon name="icon-eye-off" className={styles.iconSize} />
+                      <Icon
+                        name="icon-eye-off"
+                        className={styles.iconSize}
+                      />
                     )}
                   </button>
                 </div>
               </div>
 
               {passwordError && (
-                <p id="login-password-feedback" className={styles.errorText}>
+                <p
+                  id="login-password-feedback"
+                  className={styles.errorText}
+                  role="alert"
+                >
                   {errors.password}
                 </p>
               )}
 
               {passwordValid && (
-                <p id="login-password-feedback" className={styles.successText}>
+                <p
+                  id="login-password-feedback"
+                  className={styles.successText}
+                >
                   Password is secure
                 </p>
               )}

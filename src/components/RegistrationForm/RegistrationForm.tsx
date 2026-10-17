@@ -2,9 +2,18 @@ import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { LuEye, LuCheck } from 'react-icons/lu';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
+
+import { useAppDispatch } from '../../redux/hooks';
+import { setCredentials } from '../../redux/auth/authSlice';
+import { registerUser } from '../../services/authApi';
+import { api } from '../../services/api';
+
 import styles from './RegistrationForm.module.css';
 
 interface FormValues {
@@ -21,10 +30,13 @@ const initialValues: FormValues = {
   confirmPassword: '',
 };
 
-const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex =
+  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('Name is required'),
+  name: Yup.string()
+    .trim()
+    .required('Name is required'),
 
   email: Yup.string()
     .matches(emailRegex, 'Enter a valid Email')
@@ -75,14 +87,25 @@ function PasswordInput({
           autoComplete="new-password"
           aria-label={placeholder}
           aria-invalid={hasError}
-          aria-describedby={hasError || isValid ? feedbackId : undefined}
+          aria-describedby={
+            hasError || isValid ? feedbackId : undefined
+          }
           className={`${styles.input} ${
-            hasError ? styles.error : isValid ? styles.valid : ''
-          } ${!showPassword && value ? styles.maskedInput : ''}`}
+            hasError
+              ? styles.error
+              : isValid
+                ? styles.valid
+                : ''
+          } ${
+            !showPassword && value ? styles.maskedInput : ''
+          }`}
         />
 
         {!showPassword && value && (
-          <span className={styles.stars} aria-hidden="true">
+          <span
+            className={styles.stars}
+            aria-hidden="true"
+          >
             {'*'.repeat(value.length)}
           </span>
         )}
@@ -109,21 +132,33 @@ function PasswordInput({
             {showPassword ? (
               <LuEye className={styles.iconSize} />
             ) : (
-              <Icon name="icon-eye-off" className={styles.iconSize} />
+              <Icon
+                name="icon-eye-off"
+                className={styles.iconSize}
+              />
             )}
           </button>
         </div>
       </div>
 
       {hasError && (
-        <p id={feedbackId} className={styles.errorText}>
+        <p
+          id={feedbackId}
+          className={styles.errorText}
+          role="alert"
+        >
           {error}
         </p>
       )}
 
       {isValid && (
-        <p id={feedbackId} className={styles.successText}>
-          {name === 'password' ? 'Password is secure' : 'Passwords match'}
+        <p
+          id={feedbackId}
+          className={styles.successText}
+        >
+          {name === 'password'
+            ? 'Password is secure'
+            : 'Passwords match'}
         </p>
       )}
     </div>
@@ -132,12 +167,58 @@ function PasswordInput({
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
 
-  const handleSubmit = (values: FormValues) => {
-    const { name, email } = values;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-    console.log('Validated registration data:', { name, email });
+  const handleSubmit = async (values: FormValues) => {
+    const { name, email, password } = values;
+
+    try {
+      const response = await registerUser({
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      });
+
+      if (!response.token || !response.user) {
+        toast.error('Unexpected registration response');
+        return;
+      }
+
+      // Add token to future requests.
+      api.defaults.headers.common.Authorization =
+        `Bearer ${response.token}`;
+
+      // Save authentication information in Redux.
+      dispatch(
+        setCredentials({
+          user: response.user,
+          token: response.token,
+        }),
+      );
+
+      toast.success('Registration successful!');
+
+      navigate('/profile', { replace: true });
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const apiMessage = error.response?.data?.message;
+
+        const message =
+          typeof apiMessage === 'string'
+            ? apiMessage
+            : error.response?.status === 409
+              ? 'An account with this email already exists'
+              : 'Registration failed. Please try again.';
+
+        toast.error(message);
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
+    }
   };
 
   return (
@@ -148,17 +229,34 @@ export default function RegistrationForm() {
       validateOnBlur
       validateOnChange
     >
-      {({ values, errors, touched, isSubmitting }) => {
-        const nameError = Boolean(touched.name && errors.name);
-        const emailError = Boolean(touched.email && errors.email);
-
-        const passwordError = Boolean(touched.password && errors.password);
-
-        const confirmPasswordError = Boolean(
-          touched.confirmPassword && errors.confirmPassword,
+      {({
+        values,
+        errors,
+        touched,
+        submitCount,
+        isSubmitting,
+      }) => {
+        const nameError = Boolean(
+          (touched.name || submitCount > 0) && errors.name,
         );
 
-        const nameValid = Boolean(touched.name && values.name && !errors.name);
+        const emailError = Boolean(
+          (touched.email || submitCount > 0) && errors.email,
+        );
+
+        const passwordError = Boolean(
+          (touched.password || submitCount > 0) &&
+          errors.password,
+        );
+
+        const confirmPasswordError = Boolean(
+          (touched.confirmPassword || submitCount > 0) &&
+          errors.confirmPassword,
+        );
+
+        const nameValid = Boolean(
+          touched.name && values.name && !errors.name,
+        );
 
         const emailValid = Boolean(
           touched.email && values.email && !errors.email,
@@ -186,9 +284,15 @@ export default function RegistrationForm() {
                   autoComplete="name"
                   aria-label="Name"
                   aria-invalid={nameError}
-                  aria-describedby={nameError ? 'name-feedback' : undefined}
+                  aria-describedby={
+                    nameError ? 'name-feedback' : undefined
+                  }
                   className={`${styles.input} ${
-                    nameError ? styles.error : nameValid ? styles.valid : ''
+                    nameError
+                      ? styles.error
+                      : nameValid
+                        ? styles.valid
+                        : ''
                   }`}
                 />
 
@@ -208,7 +312,11 @@ export default function RegistrationForm() {
               </div>
 
               {nameError && (
-                <p id="name-feedback" className={styles.errorText}>
+                <p
+                  id="name-feedback"
+                  className={styles.errorText}
+                  role="alert"
+                >
                   {errors.name}
                 </p>
               )}
@@ -224,9 +332,15 @@ export default function RegistrationForm() {
                   autoComplete="email"
                   aria-label="Email"
                   aria-invalid={emailError}
-                  aria-describedby={emailError ? 'email-feedback' : undefined}
+                  aria-describedby={
+                    emailError ? 'email-feedback' : undefined
+                  }
                   className={`${styles.input} ${
-                    emailError ? styles.error : emailValid ? styles.valid : ''
+                    emailError
+                      ? styles.error
+                      : emailValid
+                        ? styles.valid
+                        : ''
                   }`}
                 />
 
@@ -246,7 +360,11 @@ export default function RegistrationForm() {
               </div>
 
               {emailError && (
-                <p id="email-feedback" className={styles.errorText}>
+                <p
+                  id="email-feedback"
+                  className={styles.errorText}
+                  role="alert"
+                >
                   {errors.email}
                 </p>
               )}
@@ -260,7 +378,9 @@ export default function RegistrationForm() {
               isValid={passwordValid}
               error={errors.password}
               showPassword={showPassword}
-              onToggle={() => setShowPassword((previous) => !previous)}
+              onToggle={() =>
+                setShowPassword((previous) => !previous)
+              }
             />
 
             <PasswordInput
@@ -271,7 +391,9 @@ export default function RegistrationForm() {
               isValid={confirmPasswordValid}
               error={errors.confirmPassword}
               showPassword={showConfirmPassword}
-              onToggle={() => setShowConfirmPassword((previous) => !previous)}
+              onToggle={() =>
+                setShowConfirmPassword((previous) => !previous)
+              }
             />
 
             <Button
@@ -280,7 +402,9 @@ export default function RegistrationForm() {
               className={styles.submitButton}
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Registering...' : 'Registration'}
+              {isSubmitting
+                ? 'Registering...'
+                : 'Registration'}
             </Button>
           </Form>
         );
