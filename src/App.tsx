@@ -30,9 +30,11 @@ export default function App() {
           <Route path="login" element={<LoginPage />} />
         </Route>
 
+        <Route path="add-pet" element={<AddPetPage />} />
+
         <Route element={<PrivateRoute />}>
           <Route path="profile" element={<ProfilePage />} />
-          <Route path="add-pet" element={<AddPetPage />} />
+          {/* <Route path="add-pet" element={<AddPetPage />} /> */}
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

@@ -15,6 +15,7 @@
     /* Text */
     --color-text: #262626;
     --color-text-secondary: rgba(38, 38, 38, 0.5);
+    --color-text-gray: rgba(43, 43, 42, 0.4);
     --color-white: #ffffff;
 
     /* Backgrounds */
@@ -69,6 +70,8 @@ input,
 textarea,
 select {
   font: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 input,
@@ -79,12 +82,6 @@ select {
   border: none;
 }
 
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

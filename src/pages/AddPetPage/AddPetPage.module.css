@@ -1,0 +1,132 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.addPetBlock {
+    height: 213px;
+}
+
+.addPetBlock svg {
+    width: 312px;
+    left: 8px;
+    top: -15px;
+}
+
+.addPetBlock img {
+    width: 291px;
+    height: 291px;
+    top: -55px;
+}
+
+.formCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    padding: 28px 20px 20px;
+
+    border-radius: 30px;
+    background-color: var(--color-white, #ffffff);
+}
+
+.heading {
+    display: flex;
+    align-items: baseline;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.caption {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.29;
+
+    color: var(--color-text-gray);
+}
+
+@media screen and (min-width: 768px) {
+    .page {
+        gap: 18px;
+        padding-bottom: 32px;
+    }
+
+    .addPetBlock {
+        height: 248px;
+    }
+
+    .addPetBlock svg {
+        width: 572px;
+        left: 26px;
+        top: -20px;
+    }
+
+    .addPetBlock img {
+        width: 375px;
+        height: 376px;
+        top: -86px;
+        left: 50%;
+    }
+
+    .formCard {
+        padding: 40px 136px;
+        border-radius: 60px;
+    }
+
+    .heading {
+        margin-bottom: 40px;
+    }
+
+    .addPetTitle {
+        font-size: 32px;
+    }
+
+    .caption {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .page {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+    }
+
+    .page>* {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .addPetBlock {
+        height: 654px;
+    }
+
+    .addPetBlock svg {
+        width: 552px;
+        height: 715px;
+        left: 0;
+        top: -10px;
+    }
+
+    .addPetBlock img {
+        width: 512px;
+        height: 648px;
+        top: -30px;
+        left: 50%;
+    }
+
+    .formCard {
+        min-height: 654px;
+        justify-content: center;
+
+        padding: 60px 80px;
+    }
+}
