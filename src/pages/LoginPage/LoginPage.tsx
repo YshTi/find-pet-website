@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router';
 
 import Container from '../../components/Container/Container';
@@ -29,8 +28,7 @@ export default function LoginPage() {
           <Title>Log in</Title>
 
           <p className={styles.subtitle}>
-            Welcome! Please enter your credentials to log in to
-            the platform:
+            Welcome! Please enter your credentials to log in to the platform:
           </p>
 
           <LoginForm />

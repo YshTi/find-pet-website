@@ -59,9 +59,7 @@ export default function Dropdown({
     startScrollTop: number;
   } | null>(null);
 
-  const selectedOption = options.find(
-    (option) => option.value === value,
-  );
+  const selectedOption = options.find((option) => option.value === value);
 
   const triggerClassName = [
     styles.trigger,
@@ -92,8 +90,7 @@ export default function Dropdown({
       return;
     }
 
-    const calculatedHeight =
-      (clientHeight / scrollHeight) * trackHeight;
+    const calculatedHeight = (clientHeight / scrollHeight) * trackHeight;
 
     const nextThumbHeight = Math.min(
       trackHeight,
@@ -103,9 +100,7 @@ export default function Dropdown({
     const maxThumbTravel = trackHeight - nextThumbHeight;
 
     const nextThumbTop =
-      maxThumbTravel > 0
-        ? (scrollTop / maxScroll) * maxThumbTravel
-        : 0;
+      maxThumbTravel > 0 ? (scrollTop / maxScroll) * maxThumbTravel : 0;
 
     setThumbHeight(nextThumbHeight);
     setThumbTop(nextThumbTop);
@@ -142,10 +137,7 @@ export default function Dropdown({
     if (!isOpen) return;
 
     const handleOutsideClick = (event: PointerEvent) => {
-      if (
-        rootRef.current &&
-        !rootRef.current.contains(event.target as Node)
-      ) {
+      if (rootRef.current && !rootRef.current.contains(event.target as Node)) {
         closeDropdown();
       }
     };
@@ -161,10 +153,7 @@ export default function Dropdown({
     document.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.removeEventListener(
-        'pointerdown',
-        handleOutsideClick,
-      );
+      document.removeEventListener('pointerdown', handleOutsideClick);
       document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, closeDropdown]);
@@ -175,9 +164,7 @@ export default function Dropdown({
     triggerRef.current?.focus();
   };
 
-  const handleThumbPointerDown = (
-    event: ReactPointerEvent<HTMLDivElement>,
-  ) => {
+  const handleThumbPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     const scrollArea = scrollRef.current;
 
     if (!scrollArea || !canScroll) return;
@@ -193,33 +180,26 @@ export default function Dropdown({
     event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const handleThumbPointerMove = (
-    event: ReactPointerEvent<HTMLDivElement>,
-  ) => {
+  const handleThumbPointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
     const scrollArea = scrollRef.current;
     const track = trackRef.current;
     const drag = dragRef.current;
 
     if (!scrollArea || !track || !drag) return;
 
-    const maxScroll =
-      scrollArea.scrollHeight - scrollArea.clientHeight;
+    const maxScroll = scrollArea.scrollHeight - scrollArea.clientHeight;
 
-    const maxThumbTravel =
-      track.clientHeight - thumbHeight;
+    const maxThumbTravel = track.clientHeight - thumbHeight;
 
     if (maxScroll <= 0 || maxThumbTravel <= 0) return;
 
     const deltaY = event.clientY - drag.startY;
 
     scrollArea.scrollTop =
-      drag.startScrollTop +
-      (deltaY / maxThumbTravel) * maxScroll;
+      drag.startScrollTop + (deltaY / maxThumbTravel) * maxScroll;
   };
 
-  const handleThumbPointerUp = (
-    event: ReactPointerEvent<HTMLDivElement>,
-  ) => {
+  const handleThumbPointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
     dragRef.current = null;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -227,13 +207,8 @@ export default function Dropdown({
     }
   };
 
-  const handleTrackPointerDown = (
-    event: ReactPointerEvent<HTMLDivElement>,
-  ) => {
-    if (
-      !canScroll ||
-      event.target !== event.currentTarget
-    ) {
+  const handleTrackPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (!canScroll || event.target !== event.currentTarget) {
       return;
     }
 
@@ -245,24 +220,18 @@ export default function Dropdown({
     const rect = track.getBoundingClientRect();
     const clickedY = event.clientY - rect.top;
 
-    const maxThumbTravel =
-      track.clientHeight - thumbHeight;
+    const maxThumbTravel = track.clientHeight - thumbHeight;
 
-    const maxScroll =
-      scrollArea.scrollHeight - scrollArea.clientHeight;
+    const maxScroll = scrollArea.scrollHeight - scrollArea.clientHeight;
 
     if (maxThumbTravel <= 0 || maxScroll <= 0) return;
 
     const desiredTop = Math.max(
       0,
-      Math.min(
-        clickedY - thumbHeight / 2,
-        maxThumbTravel,
-      ),
+      Math.min(clickedY - thumbHeight / 2, maxThumbTravel),
     );
 
-    scrollArea.scrollTop =
-      (desiredTop / maxThumbTravel) * maxScroll;
+    scrollArea.scrollTop = (desiredTop / maxThumbTravel) * maxScroll;
   };
 
   const handleTriggerKeyDown = (
@@ -283,10 +252,7 @@ export default function Dropdown({
   };
 
   return (
-    <div
-      ref={rootRef}
-      className={`${styles.dropdown} ${className}`}
-    >
+    <div ref={rootRef} className={`${styles.dropdown} ${className}`}>
       <button
         ref={triggerRef}
         type="button"
@@ -304,9 +270,7 @@ export default function Dropdown({
 
         <Icon
           name="icon-chevron-down"
-          className={`${styles.chevron} ${
-            isOpen ? styles.chevronOpen : ''
-          }`}
+          className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}
         />
       </button>
 
@@ -318,18 +282,14 @@ export default function Dropdown({
             onScroll={updateScrollbar}
           >
             {options.length === 0 ? (
-              <p className={styles.empty}>
-                No options available
-              </p>
+              <p className={styles.empty}>No options available</p>
             ) : (
               options.map((option) => (
                 <button
                   key={option.value}
                   type="button"
                   className={`${styles.option} ${
-                    value === option.value
-                      ? styles.activeOption
-                      : ''
+                    value === option.value ? styles.activeOption : ''
                   }`}
                   onClick={() => handleSelect(option.value)}
                 >

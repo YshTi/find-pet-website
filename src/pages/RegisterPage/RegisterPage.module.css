@@ -1,79 +1,79 @@
 .page {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
-    padding-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .formCard {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-    border-radius: 30px;
-    background: var(--color-white);
-    padding: 27px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-radius: 30px;
+  background: var(--color-white);
+  padding: 27px 20px;
 }
 
 .subtitle {
-    margin: 12px 0 20px 0;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.29;
-    letter-spacing: -0.02em;
+  margin: 12px 0 20px 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.02em;
 }
 
 .cardText {
-    display: flex;
-    margin-top: 12px;
-    
-    font-size: 12px;
-    line-height: 1.17;
-    font-weight: 500;
-    letter-spacing: -0.03em;
-    color: var(--color-text-secondary);
+  display: flex;
+  margin-top: 12px;
 
-    justify-content: center;
+  font-size: 12px;
+  line-height: 1.17;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--color-text-secondary);
+
+  justify-content: center;
 }
 
 .cardLink {
-    margin-left: 3px;
-    font-weight: 700;
-    text-decoration: underline;
-    color: var(--color-primary);
+  margin-left: 3px;
+  font-weight: 700;
+  text-decoration: underline;
+  color: var(--color-primary);
 }
 
 @media screen and (min-width: 768px) {
-    .page {
-        padding-bottom: 32px;
-        gap: 16px;
-    }
-    
-    .formCard {
-        padding: 27px 140px;
-    }
+  .page {
+    padding-bottom: 32px;
+    gap: 16px;
+  }
 
-    .subtitle {
-        font-size: 18px;
-        margin: 16px 0 32px 0;
-    }
+  .formCard {
+    padding: 27px 140px;
+  }
 
-    .cardText {
-        font-size: 14px;
-        margin-top: 16px;
-    }
+  .subtitle {
+    font-size: 18px;
+    margin: 16px 0 32px 0;
+  }
+
+  .cardText {
+    font-size: 14px;
+    margin-top: 16px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .page {
-        flex-direction: row;
-        gap: 32px;
-    }
-    
-    .formCard {
-        padding: 69px 84px;
-        width: 592px;
-        height: 654px;
-    }
+  .page {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .formCard {
+    padding: 69px 84px;
+    width: 592px;
+    height: 654px;
+  }
 }

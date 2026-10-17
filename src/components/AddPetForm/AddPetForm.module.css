@@ -1,454 +1,454 @@
 .form {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 295px;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 295px;
+  gap: 10px;
 }
 
-.form> :first-child {
-    margin-bottom: -2px;
+.form > :first-child {
+  margin-bottom: -2px;
 }
 
 .visuallyHidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Gender buttons */
 
 .genderGroup {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0;
-    padding: 0;
-    border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: none;
 }
 
 .genderLabel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 200ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 200ms ease;
 }
 
 .genderIcon {
-    width: 18px;
-    height: 18px;
-    fill: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
 }
 
 .female {
-    background-color: rgba(244, 63, 94, 0.1);
-    color: #f43f5e;
+  background-color: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
 }
 
 .male {
-    background-color: rgba(84, 173, 255, 0.1);
-    color: #54adff;
+  background-color: rgba(84, 173, 255, 0.1);
+  color: #54adff;
 }
 
 .multiple {
-    background-color: var(--color-surface-accent);
-    color: var(--color-primary);
+  background-color: var(--color-surface-accent);
+  color: var(--color-primary);
 }
 
 .female.selected {
-    background-color: #f43f5e;
-    color: var(--color-white);
+  background-color: #f43f5e;
+  color: var(--color-white);
 }
 
 .male.selected {
-    background-color: #54adff;
-    color: var(--color-white);
+  background-color: #54adff;
+  color: var(--color-white);
 }
 
 .multiple.selected {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .genderLabel:focus-within {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 .genderLabel.selected {
-    color: var(--color-white);
+  color: var(--color-white);
 }
 
 /* Photo preview */
 
 .photoPreview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 
-    width: 68px;
-    height: 68px;
-    margin-bottom: 6px;
+  width: 68px;
+  height: 68px;
+  margin-bottom: 6px;
 
-    overflow: hidden;
-    border-radius: 50%;
-    background-color: var(--color-surface-accent);
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: var(--color-surface-accent);
 }
 
 .pawIcon {
-    width: 34px;
-    height: 34px;
-    color: var(--color-primary);
+  width: 34px;
+  height: 34px;
+  color: var(--color-primary);
 }
 
 .previewImage {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* General form fields */
 
 .fieldGroup {
-    width: 100%;
+  width: 100%;
 }
 
 .input {
-    display: block;
-    width: 100%;
-    height: 42px;
-    padding: 0 12px;
+  display: block;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
 
-    border: 1px solid rgba(38, 38, 38, 0.15);
-    border-radius: 30px;
-    background: transparent;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  background: transparent;
 
-    color: var(--color-text);
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 500;
+  color: var(--color-text);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
 
-    outline: none;
-    transition: border-color 200ms ease;
+  outline: none;
+  transition: border-color 200ms ease;
 }
 
 .input::placeholder {
-    color: rgba(38, 38, 38, 0.5);
+  color: rgba(38, 38, 38, 0.5);
 }
 
 .input:focus {
-    border-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .input.error,
 .input.error:focus {
-    border-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 .input.valid,
 .input.valid:focus {
-    border-color: var(--color-primary);
-    color: var(--color-text);
+  border-color: var(--color-primary);
+  color: var(--color-text);
 }
 
-.errorText, 
+.errorText,
 .genderErrorText {
-    margin: 4px 0 0 12px;
-    color: var(--color-error);
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.17;
-    letter-spacing: -0.03em;
+  margin: 4px 0 0 12px;
+  color: var(--color-error);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.17;
+  letter-spacing: -0.03em;
 }
 
 .genderErrorText {
-    margin: 0;
+  margin: 0;
 }
 
 /* Image URL and upload button */
 
 .urlRow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 }
 
 .urlField {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .urlInput {
-    padding-left: 10px;
-    height: 36px;
+  padding-left: 10px;
+  height: 36px;
 }
 
 .uploadButton {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    gap: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 5px;
 
-    height: 36px;
-    width: 117px;
-    padding: 10px;
+  height: 36px;
+  width: 117px;
+  padding: 10px;
 
-    border: none;
-    border-radius: 30px;
-    background-color: #fff4df;
+  border: none;
+  border-radius: 30px;
+  background-color: #fff4df;
 
-    color: var(--color-text);
-    font-size: 12px;
-    font-weight: 500;
-    white-space: nowrap;
-    cursor: pointer;
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .uploadButton:hover {
-    background-color: #fbe5bc;
+  background-color: #fbe5bc;
 }
 
 .uploadIcon {
-    width: 16px;
-    height: 16px;
-    color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary);
 }
 
 /* Birthday and species */
 
 .detailsRow {
-    display: flex;
-    gap: 8px;
-    width: 100%;
+  display: flex;
+  gap: 8px;
+  width: 100%;
 }
 
 .dateField,
 .speciesField {
-    position: relative;
-    flex: 1;
-    min-width: 0;
+  position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .speciesField menu {
-    height: 78px;
+  height: 78px;
 }
 
 .dateField {
-    position: relative;
-    flex: 1;
-    min-width: 0;
+  position: relative;
+  flex: 1;
+  min-width: 0;
 }
 
 .dateInput {
-    width: 100%;
-    padding-right: 36px;
+  width: 100%;
+  padding-right: 36px;
 }
 
 .calendarButton {
-    position: absolute;
-    top: 0;
-    right: 10px;
+  position: absolute;
+  top: 0;
+  right: 10px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 24px;
-    height: 42px;
-    padding: 0;
+  width: 24px;
+  height: 42px;
+  padding: 0;
 
-    border: none;
-    background: transparent;
-    color: var(--color-text);
-    cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
 }
 
 .calendarIcon {
-    width: 18px;
-    height: 18px;
-    pointer-events: none;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
 }
 
 .nativeDatePicker {
-    position: absolute;
-    top: 0;
-    right: 10px;
+  position: absolute;
+  top: 0;
+  right: 10px;
 
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .calendarButton:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-    border-radius: 4px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .selectInput {
-    appearance: none;
-    padding-right: 32px;
-    cursor: pointer;
-    font-size: 12px;
+  appearance: none;
+  padding-right: 32px;
+  cursor: pointer;
+  font-size: 12px;
 }
 
 .chevronIcon {
-    position: absolute;
-    top: 22px;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    pointer-events: none;
+  position: absolute;
+  top: 22px;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
 }
 
 /* Action buttons */
 
 .actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    margin-top: 21px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 21px;
 }
 
 .backButton,
 .submitButton {
-    min-width: 100px;
-    height: 42px;
-    padding: 0 16px;
-    font-size: 14px;
+  min-width: 100px;
+  height: 42px;
+  padding: 0 16px;
+  font-size: 14px;
 }
 
 .backButton {
-    background-color: #f4f4f4;
-    border: none;
-    color: var(--color-text);
+  background-color: #f4f4f4;
+  border: none;
+  color: var(--color-text);
 }
 
 .backButton:hover {
-    background-color: #e9e9e9;
+  background-color: #e9e9e9;
 }
 
 .submitButton {
-    background-color: var(--color-primary);
-    border: none;
-    color: #ffffff;
+  background-color: var(--color-primary);
+  border: none;
+  color: #ffffff;
 }
 
 .submitButton:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
-    color: #ffffff;
+  background-color: var(--color-primary-hover);
+  color: #ffffff;
 }
 
 /* Tablet and desktop */
 
 @media screen and (min-width: 768px) {
-    .form {
-        max-width: 432px;
-        gap: 16px;
-    }
+  .form {
+    max-width: 432px;
+    gap: 16px;
+  }
 
-    .genderLabel {
-        width: 40px;
-        height: 40px;
-    }
+  .genderLabel {
+    width: 40px;
+    height: 40px;
+  }
 
-    .genderIcon {
-        width: 24px;
-        height: 24px;
-    }
+  .genderIcon {
+    width: 24px;
+    height: 24px;
+  }
 
-    .photoPreview {
-        width: 86px;
-        height: 86px;
-        margin-top: -32px;
-        margin-bottom: -6px;
-    }
+  .photoPreview {
+    width: 86px;
+    height: 86px;
+    margin-top: -32px;
+    margin-bottom: -6px;
+  }
 
-    .pawIcon {
-        width: 44px;
-        height: 44px;
-    }
+  .pawIcon {
+    width: 44px;
+    height: 44px;
+  }
 
-    .input {
-        height: 52px;
-        font-size: 16px;
-    }
+  .input {
+    height: 52px;
+    font-size: 16px;
+  }
 
-    .urlInput, 
-    .uploadButton {
-        height: 42px;
-    }
+  .urlInput,
+  .uploadButton {
+    height: 42px;
+  }
 
-    .input {
-        padding-left: 16px;
-        padding-right: 16px;
-        font-size: 16px;
-    }
+  .input {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-size: 16px;
+  }
 
-    .urlInput {
-        padding-left: 12px;
-        font-size: 14px;
-    }
+  .urlInput {
+    padding-left: 12px;
+    font-size: 14px;
+  }
 
-    .uploadButton {
-        width: 146px;
-    }
+  .uploadButton {
+    width: 146px;
+  }
 
-    .calendarButton {
-        height: 52px;
-        right: 12px;
-    }
+  .calendarButton {
+    height: 52px;
+    right: 12px;
+  }
 
-    .uploadButton {
-        padding: 0 16px;
-        font-size: 14px;
-    }
+  .uploadButton {
+    padding: 0 16px;
+    font-size: 14px;
+  }
 
-    .uploadIcon {
-        width: 18px;
-        height: 18px;
-    }
+  .uploadIcon {
+    width: 18px;
+    height: 18px;
+  }
 
-    .detailsRow {
-        gap: 12px;
-    }
+  .detailsRow {
+    gap: 12px;
+  }
 
-    .calendarIcon,
-    .chevronIcon {
-        width: 20px;
-        height: 20px;
-    }
+  .calendarIcon,
+  .chevronIcon {
+    width: 20px;
+    height: 20px;
+  }
 
-    .backButton,
-    .submitButton {
-        min-width: 170px;
-        height: 48px;
-        font-size: 16px;
-    }
+  .backButton,
+  .submitButton {
+    min-width: 170px;
+    height: 48px;
+    font-size: 16px;
+  }
 
-    .actions {
-        margin-top: 22px;
-    }
+  .actions {
+    margin-top: 22px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .form {
-        width: 432px;
-    }
+  .form {
+    width: 432px;
+  }
 }

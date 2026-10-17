@@ -1,219 +1,219 @@
 .dropdown {
-    position: relative;
-    width: 100%;
-    min-width: 0;
+  position: relative;
+  width: 100%;
+  min-width: 0;
 }
 
 .trigger {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 
-    width: 100%;
-    height: 42px;
-    padding: 0 12px;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
 
-    border: 1px solid rgba(38, 38, 38, 0.15);
-    border-radius: 30px;
-    background-color: var(--color-white);
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  background-color: var(--color-white);
 
-    color: var(--color-text-secondary);
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.29;
-    letter-spacing: -0.03em;
-    text-align: left;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  text-align: left;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* Hover and open */
 .trigger:hover,
 .trigger.open {
-    border-color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 /* Valid */
 .trigger.valid {
-    border-color: var(--color-primary);
-    color: var(--color-text);
+  border-color: var(--color-primary);
+  color: var(--color-text);
 }
 
 /* Invalid */
 .trigger.invalid {
-    border-color: var(--color-error);
+  border-color: var(--color-error);
 }
 
 /* Keyboard focus */
 .trigger:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .selected {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chevron {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    transition: transform 200ms ease;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  transition: transform 200ms ease;
 }
 
 .chevronOpen {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /* Dropdown menu */
 
 .menu {
-    position: absolute;
-    z-index: 20;
-    top: calc(100% + 4px);
-    left: 0;
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
 
-    width: 100%;
-    height: 78px;
+  width: 100%;
+  height: 78px;
 
-    padding: 12px 6px 0 0;
+  padding: 12px 6px 0 0;
 
-    border: 1px solid rgba(38, 38, 38, 0.15);
-    border-radius: 15px;
-    background-color: var(--color-white);
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 15px;
+  background-color: var(--color-white);
 }
 
 /* Actual scrolling content */
 
 .scrollArea {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 12px;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 12px;
 
-    scrollbar-width: none;
-    overscroll-behavior: contain;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
 }
 
 .scrollArea::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Individual options */
 
 .option {
-    display: block;
-    padding: 4px 12px;
-    height: 26px;
+  display: block;
+  padding: 4px 12px;
+  height: 26px;
 
-    border: none;
-    background: transparent;
+  border: none;
+  background: transparent;
 
-    color: rgba(38, 38, 38, 0.6);
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 500;
-    text-align: left;
+  color: rgba(38, 38, 38, 0.6);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .option:first-child {
-    padding-top: 0;
-    height: 22px;
+  padding-top: 0;
+  height: 22px;
 }
 
 .option:hover,
 .option:focus-visible,
 .activeOption {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .option:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: -2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
 }
 
 .empty {
-    padding: 8px 12px;
-    font-size: 12px;
-    color: rgba(38, 38, 38, 0.5);
+  padding: 8px 12px;
+  font-size: 12px;
+  color: rgba(38, 38, 38, 0.5);
 }
 
 /* Custom scrollbar */
 
 .scrollbarTrack {
-    position: absolute;
-    top: 12px;
-    right: 6px;
-    bottom: 5px;
+  position: absolute;
+  top: 12px;
+  right: 6px;
+  bottom: 5px;
 
-    width: 6px;
-    border-radius: 13px;
+  width: 6px;
+  border-radius: 13px;
 
-    background-color: transparent;
-    touch-action: none;
+  background-color: transparent;
+  touch-action: none;
 }
 
 .scrollbarThumb {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 
-    width: 100%;
-    min-height: 61px;
+  width: 100%;
+  min-height: 61px;
 
-    border-radius: 13px;
-    background-color: rgba(38, 38, 38, 0.15);
+  border-radius: 13px;
+  background-color: rgba(38, 38, 38, 0.15);
 
-    cursor: grab;
-    touch-action: none;
-    user-select: none;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
 }
 
 .scrollbarThumb:hover {
-    background-color: rgba(38, 38, 38, 0.3);
+  background-color: rgba(38, 38, 38, 0.3);
 }
 
 .scrollbarThumb:active {
-    cursor: grabbing;
-    background-color: var(--color-primary);
+  cursor: grabbing;
+  background-color: var(--color-primary);
 }
 
 /* Responsive */
 
 @media screen and (min-width: 768px) {
-    .menu {
-        height: 142px;
-        padding-top: 14px;
-        padding-right: 7px;
-    }
-    
-    .trigger {
-        height: 52px;
-        padding: 0 16px;
-        font-size: 16px;
-    }
+  .menu {
+    height: 142px;
+    padding-top: 14px;
+    padding-right: 7px;
+  }
 
-    .chevron {
-        width: 20px;
-        height: 20px;
-    }
+  .trigger {
+    height: 52px;
+    padding: 0 16px;
+    font-size: 16px;
+  }
 
-    .option {
-        height: 28px;
-        padding-left: 14px;
-        font-size: 16px;
-    }
+  .chevron {
+    width: 20px;
+    height: 20px;
+  }
 
-    .scrollbarTrack {
-        width: 8px;
-        right: 7px;
-        top: 14px;
-    }
+  .option {
+    height: 28px;
+    padding-left: 14px;
+    font-size: 16px;
+  }
+
+  .scrollbarTrack {
+    width: 8px;
+    right: 7px;
+    top: 14px;
+  }
 }

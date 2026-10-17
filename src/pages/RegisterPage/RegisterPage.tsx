@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router';
 
 import Container from '../../components/Container/Container';
@@ -12,7 +11,6 @@ export default function RegisterPage() {
   return (
     <Container>
       <section className={styles.page}>
-        
         <PetBlock
           image="/images/cat-register.webp"
           rectangleIcon="icon-rectangle"
@@ -26,22 +24,21 @@ export default function RegisterPage() {
           }}
         />
 
-
         <div className={styles.formCard}>
-            <Title>Registration</Title>
+          <Title>Registration</Title>
 
-            <p className={styles.subtitle}>
-              Thank you for your interest in our platform.
-            </p>
+          <p className={styles.subtitle}>
+            Thank you for your interest in our platform.
+          </p>
 
-            <RegistrationForm />
+          <RegistrationForm />
 
-            <p className={styles.cardText}>
-              Already have an account?{' '}
-              <Link to="/login" className={styles.cardLink}>
-                Login
-              </Link>
-            </p>
+          <p className={styles.cardText}>
+            Already have an account?{' '}
+            <Link to="/login" className={styles.cardLink}>
+              Login
+            </Link>
+          </p>
         </div>
       </section>
     </Container>

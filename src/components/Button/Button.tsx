@@ -5,8 +5,7 @@ import styles from './Button.module.css';
 
 type ButtonVariant = 'primary' | 'secondary';
 
-interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   to?: string;
   variant?: ButtonVariant;

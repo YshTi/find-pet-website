@@ -1,68 +1,68 @@
 .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-    padding: 0;
-    border: 1px solid transparent;
-    border-radius: 30px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 30px;
 
-    font-family: var(--font-family);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.29;
-    letter-spacing: -0.03em;
-    text-align: center;
-    text-decoration: none;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
+  text-align: center;
+  text-decoration: none;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition:
-        background-color 200ms ease,
-        color 200ms ease,
-        border-color 200ms ease;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
 }
 
 /* PRIMARY */
 
 .primary {
-    background-color: var(--color-primary);
-    border-color: var(--color-white);
-    color: var(--color-white);
+  background-color: var(--color-primary);
+  border-color: var(--color-white);
+  color: var(--color-white);
 }
 
 .primary:hover:not(:disabled) {
-    background-color: var(--color-surface-accent);
-    border-color: var(--color-surface-accent);
-    color: var(--color-primary-hover);
+  background-color: var(--color-surface-accent);
+  border-color: var(--color-surface-accent);
+  color: var(--color-primary-hover);
 }
 
 /* SECONDARY */
 
 .secondary {
-    background-color: var(--color-surface-accent);
-    color: var(--color-primary-hover);
+  background-color: var(--color-surface-accent);
+  color: var(--color-primary-hover);
 }
 
 .secondary:hover:not(:disabled) {
-    background-color: var(--color-surface-dark-accent);
+  background-color: var(--color-surface-dark-accent);
 }
 
 /* Common states */
 
 .button:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 .button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .button {
-        transition: none;
-    }
+  .button {
+    transition: none;
+  }
 }

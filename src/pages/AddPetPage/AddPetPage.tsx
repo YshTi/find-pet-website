@@ -1,10 +1,9 @@
 import Container from '../../components/Container/Container';
 import PetBlock from '../../components/PetBlock/PetBlock';
 import AddPetForm from '../../components/AddPetForm/AddPetForm';
-import Title from '../../components/Title/Title'
+import Title from '../../components/Title/Title';
 
 import styles from './AddPetPage.module.css';
-
 
 export default function AddPetPage() {
   return (
@@ -20,9 +19,7 @@ export default function AddPetPage() {
         <div className={styles.formCard}>
           <div className={styles.heading}>
             <Title className={styles.addPetTitle}>Add my pet /</Title>
-            <span className={styles.caption}>
-              Personal details
-            </span>
+            <span className={styles.caption}>Personal details</span>
           </div>
 
           <AddPetForm />

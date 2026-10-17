@@ -18,11 +18,7 @@ export default function PetInfo({
   return (
     <div className={`${styles.card} ${className}`}>
       <div className={styles.avatar}>
-        <img
-          src={avatar}
-          alt=""
-          className={styles.avatarImage}
-        />
+        <img src={avatar} alt="" className={styles.avatarImage} />
       </div>
 
       <div className={styles.content}>
@@ -34,9 +30,7 @@ export default function PetInfo({
           </span>
         </div>
 
-        <p className={styles.description}>
-          {description}
-        </p>
+        <p className={styles.description}>{description}</p>
       </div>
     </div>
   );

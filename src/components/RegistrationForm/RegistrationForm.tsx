@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
@@ -22,8 +21,7 @@ const initialValues: FormValues = {
   confirmPassword: '',
 };
 
-const emailRegex =
-  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
   name: Yup.string().required('Name is required'),
@@ -77,9 +75,7 @@ function PasswordInput({
           autoComplete="new-password"
           aria-label={placeholder}
           aria-invalid={hasError}
-          aria-describedby={
-            hasError || isValid ? feedbackId : undefined
-          }
+          aria-describedby={hasError || isValid ? feedbackId : undefined}
           className={`${styles.input} ${
             hasError ? styles.error : isValid ? styles.valid : ''
           } ${!showPassword && value ? styles.maskedInput : ''}`}
@@ -113,10 +109,7 @@ function PasswordInput({
             {showPassword ? (
               <LuEye className={styles.iconSize} />
             ) : (
-              <Icon
-                name="icon-eye-off"
-                className={styles.iconSize}
-              />
+              <Icon name="icon-eye-off" className={styles.iconSize} />
             )}
           </button>
         </div>
@@ -130,9 +123,7 @@ function PasswordInput({
 
       {isValid && (
         <p id={feedbackId} className={styles.successText}>
-          {name === 'password'
-            ? 'Password is secure'
-            : 'Passwords match'}
+          {name === 'password' ? 'Password is secure' : 'Passwords match'}
         </p>
       )}
     </div>
@@ -141,8 +132,7 @@ function PasswordInput({
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = (values: FormValues) => {
     const { name, email } = values;
@@ -162,17 +152,13 @@ export default function RegistrationForm() {
         const nameError = Boolean(touched.name && errors.name);
         const emailError = Boolean(touched.email && errors.email);
 
-        const passwordError = Boolean(
-          touched.password && errors.password,
-        );
+        const passwordError = Boolean(touched.password && errors.password);
 
         const confirmPasswordError = Boolean(
           touched.confirmPassword && errors.confirmPassword,
         );
 
-        const nameValid = Boolean(
-          touched.name && values.name && !errors.name,
-        );
+        const nameValid = Boolean(touched.name && values.name && !errors.name);
 
         const emailValid = Boolean(
           touched.email && values.email && !errors.email,
@@ -184,8 +170,8 @@ export default function RegistrationForm() {
 
         const confirmPasswordValid = Boolean(
           touched.confirmPassword &&
-            values.confirmPassword &&
-            !errors.confirmPassword,
+          values.confirmPassword &&
+          !errors.confirmPassword,
         );
 
         return (
@@ -200,15 +186,9 @@ export default function RegistrationForm() {
                   autoComplete="name"
                   aria-label="Name"
                   aria-invalid={nameError}
-                  aria-describedby={
-                    nameError ? 'name-feedback' : undefined
-                  }
+                  aria-describedby={nameError ? 'name-feedback' : undefined}
                   className={`${styles.input} ${
-                    nameError
-                      ? styles.error
-                      : nameValid
-                        ? styles.valid
-                        : ''
+                    nameError ? styles.error : nameValid ? styles.valid : ''
                   }`}
                 />
 
@@ -228,10 +208,7 @@ export default function RegistrationForm() {
               </div>
 
               {nameError && (
-                <p
-                  id="name-feedback"
-                  className={styles.errorText}
-                >
+                <p id="name-feedback" className={styles.errorText}>
                   {errors.name}
                 </p>
               )}
@@ -247,15 +224,9 @@ export default function RegistrationForm() {
                   autoComplete="email"
                   aria-label="Email"
                   aria-invalid={emailError}
-                  aria-describedby={
-                    emailError ? 'email-feedback' : undefined
-                  }
+                  aria-describedby={emailError ? 'email-feedback' : undefined}
                   className={`${styles.input} ${
-                    emailError
-                      ? styles.error
-                      : emailValid
-                        ? styles.valid
-                        : ''
+                    emailError ? styles.error : emailValid ? styles.valid : ''
                   }`}
                 />
 
@@ -275,10 +246,7 @@ export default function RegistrationForm() {
               </div>
 
               {emailError && (
-                <p
-                  id="email-feedback"
-                  className={styles.errorText}
-                >
+                <p id="email-feedback" className={styles.errorText}>
                   {errors.email}
                 </p>
               )}
@@ -292,9 +260,7 @@ export default function RegistrationForm() {
               isValid={passwordValid}
               error={errors.password}
               showPassword={showPassword}
-              onToggle={() =>
-                setShowPassword((previous) => !previous)
-              }
+              onToggle={() => setShowPassword((previous) => !previous)}
             />
 
             <PasswordInput
@@ -305,9 +271,7 @@ export default function RegistrationForm() {
               isValid={confirmPasswordValid}
               error={errors.confirmPassword}
               showPassword={showConfirmPassword}
-              onToggle={() =>
-                setShowConfirmPassword((previous) => !previous)
-              }
+              onToggle={() => setShowConfirmPassword((previous) => !previous)}
             />
 
             <Button

@@ -21,15 +21,9 @@ export default function NotFoundPage() {
           <span>4</span>
         </div>
 
-        <p className={styles.message}>
-          Ooops! This page not found :(
-        </p>
+        <p className={styles.message}>Ooops! This page not found :(</p>
 
-        <Button
-          to="/home"
-          variant="secondary"
-          className={styles.homeButton}
-        >
+        <Button to="/home" variant="secondary" className={styles.homeButton}>
           To home page
         </Button>
       </section>

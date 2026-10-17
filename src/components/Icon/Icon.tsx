@@ -5,18 +5,9 @@ interface IconProps extends SVGProps<SVGSVGElement> {
   size?: number;
 }
 
-export default function Icon({
-  name,
-  size = 24,
-  ...props
-}: IconProps) {
+export default function Icon({ name, size = 24, ...props }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      aria-hidden="true"
-      {...props}
-    >
+    <svg width={size} height={size} aria-hidden="true" {...props}>
       <use href={`/sprite.svg#${name}`} />
     </svg>
   );

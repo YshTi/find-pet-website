@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { Formik, Form, Field } from 'formik';
@@ -8,9 +7,7 @@ import toast from 'react-hot-toast';
 
 import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
-import Dropdown, {
-  type DropdownOption,
-} from '../Dropdown/Dropdown';
+import Dropdown, { type DropdownOption } from '../Dropdown/Dropdown';
 import { getSpecies } from '../../services/speciesApi';
 
 import styles from './AddPetForm.module.css';
@@ -35,8 +32,7 @@ const initialValues: AddPetValues = {
   customSpecies: '',
 };
 
-const imageRegex =
-  /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/i;
+const imageRegex = /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/i;
 
 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
 
@@ -51,11 +47,7 @@ const formatBirthday = (value: string): string => {
     return `${digits.slice(0, 2)}.${digits.slice(2)}`;
   }
 
-  return (
-    `${digits.slice(0, 2)}.` +
-    `${digits.slice(2, 4)}.` +
-    digits.slice(4)
-  );
+  return `${digits.slice(0, 2)}.` + `${digits.slice(2, 4)}.` + digits.slice(4);
 };
 
 const convertBirthdayToApi = (birthday: string): string => {
@@ -93,13 +85,9 @@ const validationSchema = Yup.object({
     .matches(imageRegex, 'Enter a valid image URL')
     .required('Image URL is required'),
 
-  title: Yup.string()
-    .trim()
-    .required('Title is required'),
+  title: Yup.string().trim().required('Title is required'),
 
-  name: Yup.string()
-    .trim()
-    .required("Pet's name is required"),
+  name: Yup.string().trim().required("Pet's name is required"),
 
   birthday: Yup.string()
     .required('Birthday is required')
@@ -107,8 +95,7 @@ const validationSchema = Yup.object({
     .test(
       'real-date',
       'Enter a valid birthday',
-      (value) => !value || !dateRegex.test(value) ||
-        isValidBirthday(value),
+      (value) => !value || !dateRegex.test(value) || isValidBirthday(value),
     ),
 
   species: Yup.string().required('Choose a pet type'),
@@ -139,9 +126,7 @@ export default function AddPetForm() {
   const [previewUrl, setPreviewUrl] = useState('');
   const [previewError, setPreviewError] = useState(false);
 
-  const [speciesOptions, setSpeciesOptions] = useState<
-    DropdownOption[]
-  >([]);
+  const [speciesOptions, setSpeciesOptions] = useState<DropdownOption[]>([]);
 
   const [speciesLoading, setSpeciesLoading] = useState(true);
   const [speciesError, setSpeciesError] = useState(false);
@@ -156,9 +141,7 @@ export default function AddPetForm() {
         if (!active) return;
 
         setSpeciesOptions([
-          ...options.filter(
-            (option) => option.value.toLowerCase() !== 'other',
-          ),
+          ...options.filter((option) => option.value.toLowerCase() !== 'other'),
           { value: 'other', label: 'Other' },
         ]);
 
@@ -166,9 +149,7 @@ export default function AddPetForm() {
       } catch {
         if (!active) return;
 
-        setSpeciesOptions([
-          { value: 'other', label: 'Other' },
-        ]);
+        setSpeciesOptions([{ value: 'other', label: 'Other' }]);
 
         setSpeciesError(true);
         toast.error('Failed to load pet species');
@@ -229,8 +210,7 @@ export default function AddPetForm() {
         isSubmitting,
       }) => {
         const isInvalid = (name: keyof AddPetValues) =>
-          Boolean(errors[name]) &&
-          (Boolean(touched[name]) || submitCount > 0);
+          Boolean(errors[name]) && (Boolean(touched[name]) || submitCount > 0);
 
         const isValid = (name: keyof AddPetValues) =>
           Boolean(values[name]) &&
@@ -239,21 +219,14 @@ export default function AddPetForm() {
 
         const fieldClass = (name: keyof AddPetValues) =>
           `${styles.input} ${
-            isInvalid(name)
-              ? styles.error
-              : isValid(name)
-                ? styles.valid
-                : ''
+            isInvalid(name) ? styles.error : isValid(name) ? styles.valid : ''
           }`;
 
         const imageValid =
-          Boolean(values.imgUrl) &&
-          imageRegex.test(values.imgUrl);
+          Boolean(values.imgUrl) && imageRegex.test(values.imgUrl);
 
         const showPreview =
-          imageValid &&
-          previewUrl === values.imgUrl &&
-          !previewError;
+          imageValid && previewUrl === values.imgUrl && !previewError;
 
         const handlePreview = async () => {
           await setFieldTouched('imgUrl', true);
@@ -296,19 +269,13 @@ export default function AddPetForm() {
           <Form className={styles.form} noValidate>
             <div className={styles.genderField}>
               <fieldset className={styles.genderGroup}>
-                <legend className={styles.visuallyHidden}>
-                  Pet gender
-                </legend>
+                <legend className={styles.visuallyHidden}>Pet gender</legend>
 
                 {genderOptions.map((option) => (
                   <label
                     key={option.value}
-                    className={`${styles.genderLabel} ${
-                      styles[option.value]
-                    } ${
-                      values.sex === option.value
-                        ? styles.selected
-                        : ''
+                    className={`${styles.genderLabel} ${styles[option.value]} ${
+                      values.sex === option.value ? styles.selected : ''
                     }`}
                   >
                     <Field
@@ -318,16 +285,11 @@ export default function AddPetForm() {
                       className={styles.visuallyHidden}
                       aria-invalid={isInvalid('sex')}
                       aria-describedby={
-                        isInvalid('sex')
-                          ? 'sex-error'
-                          : undefined
+                        isInvalid('sex') ? 'sex-error' : undefined
                       }
                     />
 
-                    <Icon
-                      name={option.icon}
-                      className={styles.genderIcon}
-                    />
+                    <Icon name={option.icon} className={styles.genderIcon} />
 
                     <span className={styles.visuallyHidden}>
                       {option.value}
@@ -359,10 +321,7 @@ export default function AddPetForm() {
                   }}
                 />
               ) : (
-                <Icon
-                  name="icon-paw"
-                  className={styles.pawIcon}
-                />
+                <Icon name="icon-paw" className={styles.pawIcon} />
               )}
             </div>
 
@@ -376,18 +335,11 @@ export default function AddPetForm() {
                     aria-label="Pet image URL"
                     aria-invalid={isInvalid('imgUrl')}
                     aria-describedby={
-                      isInvalid('imgUrl')
-                        ? 'imgUrl-error'
-                        : undefined
+                      isInvalid('imgUrl') ? 'imgUrl-error' : undefined
                     }
                     className={`${fieldClass('imgUrl')} ${styles.urlInput}`}
-                    onChange={(
-                      event: ChangeEvent<HTMLInputElement>,
-                    ) => {
-                      void setFieldValue(
-                        'imgUrl',
-                        event.target.value,
-                      );
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                      void setFieldValue('imgUrl', event.target.value);
 
                       setPreviewUrl('');
                       setPreviewError(false);
@@ -411,11 +363,7 @@ export default function AddPetForm() {
               </div>
 
               {isInvalid('imgUrl') && (
-                <p
-                  id="imgUrl-error"
-                  className={styles.errorText}
-                  role="alert"
-                >
+                <p id="imgUrl-error" className={styles.errorText} role="alert">
                   {errors.imgUrl}
                 </p>
               )}
@@ -429,19 +377,13 @@ export default function AddPetForm() {
                 aria-label="Title"
                 aria-invalid={isInvalid('title')}
                 aria-describedby={
-                  isInvalid('title')
-                    ? 'title-error'
-                    : undefined
+                  isInvalid('title') ? 'title-error' : undefined
                 }
                 className={fieldClass('title')}
               />
 
               {isInvalid('title') && (
-                <p
-                  id="title-error"
-                  className={styles.errorText}
-                  role="alert"
-                >
+                <p id="title-error" className={styles.errorText} role="alert">
                   {errors.title}
                 </p>
               )}
@@ -454,20 +396,12 @@ export default function AddPetForm() {
                 placeholder="Pet's Name"
                 aria-label="Pet's name"
                 aria-invalid={isInvalid('name')}
-                aria-describedby={
-                  isInvalid('name')
-                    ? 'name-error'
-                    : undefined
-                }
+                aria-describedby={isInvalid('name') ? 'name-error' : undefined}
                 className={fieldClass('name')}
               />
 
               {isInvalid('name') && (
-                <p
-                  id="name-error"
-                  className={styles.errorText}
-                  role="alert"
-                >
+                <p id="name-error" className={styles.errorText} role="alert">
                   {errors.name}
                 </p>
               )}
@@ -484,14 +418,10 @@ export default function AddPetForm() {
                   aria-label="Birthday"
                   aria-invalid={isInvalid('birthday')}
                   aria-describedby={
-                    isInvalid('birthday')
-                      ? 'birthday-error'
-                      : undefined
+                    isInvalid('birthday') ? 'birthday-error' : undefined
                   }
                   className={`${fieldClass('birthday')} ${styles.dateInput}`}
-                  onChange={(
-                    event: ChangeEvent<HTMLInputElement>,
-                  ) => {
+                  onChange={(event: ChangeEvent<HTMLInputElement>) => {
                     void setFieldValue(
                       'birthday',
                       formatBirthday(event.target.value),
@@ -515,16 +445,10 @@ export default function AddPetForm() {
                     if (event.target.value) {
                       void setFieldValue(
                         'birthday',
-                        convertBirthdayFromApi(
-                          event.target.value,
-                        ),
+                        convertBirthdayFromApi(event.target.value),
                       );
 
-                      void setFieldTouched(
-                        'birthday',
-                        true,
-                        false,
-                      );
+                      void setFieldTouched('birthday', true, false);
                     }
                   }}
                 />
@@ -535,10 +459,7 @@ export default function AddPetForm() {
                   onClick={handleCalendarClick}
                   aria-label="Open birthday calendar"
                 >
-                  <Icon
-                    name="icon-calendar"
-                    className={styles.calendarIcon}
-                  />
+                  <Icon name="icon-calendar" className={styles.calendarIcon} />
                 </button>
 
                 {isInvalid('birthday') && (
@@ -571,9 +492,7 @@ export default function AddPetForm() {
                   onBlur={() => {
                     void setFieldTouched('species', true, true);
                   }}
-                  placeholder={
-                    speciesLoading ? 'Loading...' : 'Type of pet'
-                  }
+                  placeholder={speciesLoading ? 'Loading...' : 'Type of pet'}
                   disabled={speciesLoading}
                   invalid={!values.species && isInvalid('species')}
                   valid={Boolean(values.species) && !errors.species}
@@ -621,8 +540,8 @@ export default function AddPetForm() {
 
             {speciesError && (
               <p className={styles.errorText}>
-                Could not load predefined pet types.
-                You can choose Other and enter a species.
+                Could not load predefined pet types. You can choose Other and
+                enter a species.
               </p>
             )}
 

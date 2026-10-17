@@ -27,17 +27,9 @@ export default function PetBlock({
   return (
     <div className={`${styles.petBlock} ${className}`}>
       <div className={styles.imageComposition}>
-        <Icon
-          name={rectangleIcon}
-          className={styles.rectangle}
-        />
+        <Icon name={rectangleIcon} className={styles.rectangle} />
 
-        <img
-          src={image}
-          alt={alt}
-          className={styles.image}
-          decoding="async"
-        />
+        <img src={image} alt={alt} className={styles.image} decoding="async" />
       </div>
 
       {petInfo && (

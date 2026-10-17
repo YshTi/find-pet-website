@@ -5,31 +5,31 @@
 }
 
 :root {
-    font-family: "Manrope", sans-serif;
-    --font-family: "Manrope", sans-serif;
+  font-family: 'Manrope', sans-serif;
+  --font-family: 'Manrope', sans-serif;
 
-    /* Main colors */
-    --color-primary: #f6b83d;
-    --color-primary-hover: #f9b020;
+  /* Main colors */
+  --color-primary: #f6b83d;
+  --color-primary-hover: #f9b020;
 
-    /* Text */
-    --color-text: #262626;
-    --color-text-secondary: rgba(38, 38, 38, 0.5);
-    --color-text-gray: rgba(43, 43, 42, 0.4);
-    --color-white: #ffffff;
+  /* Text */
+  --color-text: #262626;
+  --color-text-secondary: rgba(38, 38, 38, 0.5);
+  --color-text-gray: rgba(43, 43, 42, 0.4);
+  --color-white: #ffffff;
 
-    /* Backgrounds */
-    --color-background: #f9f9f9;
-    --color-surface: #ffffff;
-    --color-surface-accent: #fff4df;
-    --color-surface-dark-accent: #fbe7c1;
+  /* Backgrounds */
+  --color-background: #f9f9f9;
+  --color-surface: #ffffff;
+  --color-surface-accent: #fff4df;
+  --color-surface-dark-accent: #fbe7c1;
 
-    /* Borders */
-    --color-border: rgba(38, 38, 38, 0.15);
+  /* Borders */
+  --color-border: rgba(38, 38, 38, 0.15);
 
-    /* Status */
-    --color-success: #08aa83;
-    --color-error: #ef2447;
+  /* Status */
+  --color-success: #08aa83;
+  --color-error: #ef2447;
 }
 
 body {
@@ -37,11 +37,10 @@ body {
   font-family: var(--font-family);
   font-weight: var(--font-weight-medium);
   min-width: 320px;
-  
+
   color: var(--color-text);
   background: var(--color-background);
 }
-
 
 h1,
 h2,
@@ -81,7 +80,6 @@ select {
   background: transparent;
   border: none;
 }
-
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
