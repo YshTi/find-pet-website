@@ -27,7 +27,6 @@ export default function RegisterPage() {
 
 
         <div className={styles.formCard}>
-          <div className={styles.content}>
             <Title>Registration</Title>
 
             <p className={styles.subtitle}>
@@ -42,7 +41,6 @@ export default function RegisterPage() {
                 Login
               </Link>
             </p>
-          </div>
         </div>
       </section>
     </Container>

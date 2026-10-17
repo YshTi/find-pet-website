@@ -21,6 +21,7 @@
     --color-background: #f9f9f9;
     --color-surface: #ffffff;
     --color-surface-accent: #fff4df;
+    --color-surface-dark-accent: #fbe7c1;
 
     /* Borders */
     --color-border: rgba(38, 38, 38, 0.15);
@@ -40,6 +41,29 @@ body {
   background: var(--color-background);
 }
 
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 button,
 input,
 textarea,
@@ -47,12 +71,43 @@ select {
   font: inherit;
 }
 
+input,
+textarea,
+select {
+  color: inherit;
+  background: transparent;
+  border: none;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-text);
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  box-shadow: 0 0 0 1000px #ffffff inset;
+  caret-color: var(--color-text);
+}
+
 button {
   cursor: pointer;
 }
 
-img {
+img,
+svg {
   display: block;
+}
+
+img {
   max-width: 100%;
   height: auto;
 }

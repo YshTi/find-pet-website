@@ -1,9 +1,11 @@
+
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { LuEye, LuCheck } from 'react-icons/lu';
 
 import Icon from '../Icon/Icon';
+import Button from '../Button/Button';
 import styles from './RegistrationForm.module.css';
 
 interface FormValues {
@@ -92,8 +94,7 @@ function PasswordInput({
         <div className={styles.passwordIcons}>
           {isValid && (
             <LuCheck
-              size={20}
-              className={styles.checkIcon}
+              className={`${styles.checkIcon} ${styles.iconSize}`}
               aria-hidden="true"
             />
           )}
@@ -110,9 +111,12 @@ function PasswordInput({
             aria-pressed={showPassword}
           >
             {showPassword ? (
-              <LuEye size={20} />
+              <LuEye className={styles.iconSize} />
             ) : (
-              <Icon name="icon-eye-off" size={20} />
+              <Icon
+                name="icon-eye-off"
+                className={styles.iconSize}
+              />
             )}
           </button>
         </div>
@@ -143,7 +147,6 @@ export default function RegistrationForm() {
   const handleSubmit = (values: FormValues) => {
     const { name, email } = values;
 
-    // Replace with the registration API request.
     console.log('Validated registration data:', { name, email });
   };
 
@@ -176,9 +179,7 @@ export default function RegistrationForm() {
         );
 
         const passwordValid = Boolean(
-          touched.password &&
-            values.password &&
-            !errors.password,
+          touched.password && values.password && !errors.password,
         );
 
         const confirmPasswordValid = Boolean(
@@ -214,15 +215,13 @@ export default function RegistrationForm() {
                 {nameError && (
                   <Icon
                     name="icon-cross"
-                    size={20}
-                    className={styles.crossIcon}
+                    className={`${styles.crossIcon} ${styles.iconSize}`}
                   />
                 )}
 
                 {nameValid && (
                   <LuCheck
-                    size={20}
-                    className={styles.checkIconAbsolute}
+                    className={`${styles.checkIconAbsolute} ${styles.iconSize}`}
                     aria-hidden="true"
                   />
                 )}
@@ -263,15 +262,13 @@ export default function RegistrationForm() {
                 {emailError && (
                   <Icon
                     name="icon-cross"
-                    size={20}
-                    className={styles.crossIcon}
+                    className={`${styles.crossIcon} ${styles.iconSize}`}
                   />
                 )}
 
                 {emailValid && (
                   <LuCheck
-                    size={20}
-                    className={styles.checkIconAbsolute}
+                    className={`${styles.checkIconAbsolute} ${styles.iconSize}`}
                     aria-hidden="true"
                   />
                 )}
@@ -313,13 +310,14 @@ export default function RegistrationForm() {
               }
             />
 
-            <button
+            <Button
               type="submit"
+              variant="primary"
               className={styles.submitButton}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Registering...' : 'Registration'}
-            </button>
+            </Button>
           </Form>
         );
       }}
