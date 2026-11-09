@@ -9,6 +9,10 @@
     border-radius: 30px;
 }
 
+.searchForm:hover {
+    border-color: var(--color-primary);
+}
+
 .input {
     flex: 1;
     min-width: 0;
