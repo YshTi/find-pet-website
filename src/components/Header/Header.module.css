@@ -6,6 +6,10 @@
   background-color: var(--color-background);
 }
 
+/* .homeHeaderContainer {
+  padding: 0 32px;
+} */
+
 .headerInner {
   display: flex;
   align-items: center;
@@ -137,10 +141,6 @@
 /* Desktop */
 
 @media screen and (min-width: 1280px) {
-  .header {
-    padding: 32px;
-  }
-
   .headerInner {
     gap: 0;
   }

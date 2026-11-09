@@ -78,7 +78,7 @@ export default function Header() {
           isHome ? styles.homeHeader : ''
         }`}
       >
-        <Container>
+        <Container className={styles.homeHeaderContainer}>
           <div className={styles.headerInner}>
             <Link
               to="/home"
