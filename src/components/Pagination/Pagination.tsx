@@ -87,6 +87,27 @@ export default function Pagination({
     onPageChange(page);
   };
 
+  /*
+   * OPTIONAL: Clickable ellipsis functionality
+   *
+   * Clicking "..." moves to the first page of the next group.
+   *
+   * Mobile (2 visible page numbers):
+   * 1, 2, ... -> 3, 4, ... -> 5, 6, ...
+   *
+   * Tablet/Desktop (3 visible page numbers):
+   * 1, 2, 3, ... -> 4, 5, 6, ... -> 7, 8, 9, ...
+   *
+   * Currently disabled because the technical specification
+   * requires ellipses to be visual indicators only.
+   *
+   * To enable:
+   * 1. Uncomment the function below.
+   * 2. Replace the ellipsis <span> with the <button>
+   *    provided in the JSX comment below.
+   */
+
+  /*
   const handleNextGroup = () => {
     const groupIndex = Math.floor(
       (currentPage - 1) / visibleCount,
@@ -97,6 +118,7 @@ export default function Pagination({
 
     handlePageChange(nextGroupStart);
   };
+  */
 
   return (
     <nav
@@ -138,15 +160,30 @@ export default function Pagination({
       <div className={styles.pages}>
         {visiblePages.map((page, index) =>
           page === 'ellipsis' ? (
-            <button
+            <span
               key={`ellipsis-${index}`}
-              type="button"
               className={styles.ellipsis}
-              onClick={handleNextGroup}
-              aria-label="Next group of pages"
+              aria-hidden="true"
             >
               ...
-            </button>
+            </span>
+
+            /*
+             * OPTIONAL: Clickable ellipsis
+             *
+             * Replace the <span> above with this button
+             * and uncomment handleNextGroup().
+             *
+             * <button
+             *   key={`ellipsis-${index}`}
+             *   type="button"
+             *   className={styles.ellipsis}
+             *   onClick={handleNextGroup}
+             *   aria-label="Next group of pages"
+             * >
+             *   ...
+             * </button>
+             */
           ) : (
             <button
               key={page}

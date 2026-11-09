@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 11px;
     padding-top: 40px;
 }
 
@@ -19,8 +18,8 @@
     justify-content: center;
     flex-shrink: 0;
 
-    width: 40px;
-    height: 40px;
+    width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+    height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
 
     padding: 0;
     border: 1px solid rgba(26,26,26,0.20);
@@ -79,8 +78,8 @@
     justify-content: center;
     flex-shrink: 0;
 
-    width: 40px;
-    height: 40px;
+    width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+    height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
     padding: 0;
 
     border: 1px solid rgba(26, 26, 26, 0.05);
@@ -91,21 +90,33 @@
     font-weight: 500;
     color: var(--color-text);
 
-    cursor: pointer;
+    cursor: default;
+    user-select: none;
+
+    /*uncomment if you want ellipses to be working button*/
+
+    /* cursor: pointer;
     transition:
         background-color 200ms ease,
-        border-color 200ms ease;
+        border-color 200ms ease; */
 }
 
+/* For functioning button of ellipses */
+/*
 .ellipsis:hover {
     background-color: var(--color-surface-dark-accent);
     border-color: var(--color-primary);
 }
 
+.ellipsis:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+*/
+
 
 .arrow:focus-visible,
-.page:focus-visible,
-.ellipsis:focus-visible {
+.page:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
