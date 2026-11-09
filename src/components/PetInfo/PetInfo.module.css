@@ -53,12 +53,12 @@
 }
 
 .birthday span {
-  color: #262626;
+  color: var(--color-text);
 }
 
 .description {
   margin: 8px 0 0;
-  color: #262626;
+  color: var(--color-text);
   font-size: 12px;
   letter-spacing: -0.02em;
 }

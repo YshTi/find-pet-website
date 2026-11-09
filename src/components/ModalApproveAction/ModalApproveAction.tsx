@@ -101,25 +101,19 @@ export default function ModalApproveAction({
           />
         </button>
 
+         <div className={styles.imageWrapper}>
+          <img
+            src="/images/cat-icon.webp"
+            alt=""
+            className={styles.image}
+          />
+        </div>
+
         <h2 id="logout-title" className={styles.title}>
           Already leaving?
         </h2>
 
-        <p className={styles.description}>
-          Are you sure you want to log out?
-        </p>
-
         <div className={styles.actions}>
-          <Button
-            type="button"
-            variant="secondary"
-            className={styles.cancelButton}
-            onClick={onClose}
-            disabled={isLoading}
-          >
-            Cancel
-          </Button>
-
           <Button
             type="button"
             variant="primary"
@@ -128,6 +122,16 @@ export default function ModalApproveAction({
             disabled={isLoading}
           >
             {isLoading ? 'Logging out...' : 'Yes'}
+          </Button>
+          
+          <Button
+            type="button"
+            variant="secondary"
+            className={styles.cancelButton}
+            onClick={onClose}
+            disabled={isLoading}
+          >
+            Cancel
           </Button>
         </div>
       </div>

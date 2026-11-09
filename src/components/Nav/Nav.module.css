@@ -12,6 +12,7 @@
     padding: 0 20px;
     border: 1px solid var(--color-border);
     border-radius: 30px;
+    background-color: transparent;
     color: var(--color-text);
     font-size: 16px;
     font-weight: 500;
@@ -44,10 +45,16 @@
 }
 
 .home .link {
-    border-color: var(--color-white);
+    border-color: var(--color-white-highlight);
     color: var(--color-white);
+    background-color: transparent;
     line-height: 1.25;
     letter-spacing: -0.03em;
+}
+
+.home .link:hover {
+    background-color: var(--color-surface-accent);
+    color: var(--color-primary);
 }
 
 @media screen and (min-width: 768px) {
@@ -70,5 +77,9 @@
     .nav {
         padding-left: 280px;
         padding-right: 110px;
+    }
+
+    .link {
+        border-color: var(--color-border);
     }
 }

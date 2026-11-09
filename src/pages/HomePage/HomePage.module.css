@@ -22,12 +22,12 @@
 .heroTitle {
     font-weight: 700;
     font-size: 50px;
-    line-height: 0.96;
+    line-height: 0.97;
     letter-spacing: -0.03em;
 }
 
 .heroHighlight {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-white-highlight);
 }
 
 .heroSubtitle {
@@ -89,5 +89,27 @@
     .homeImage {
         height: 496px;
         transform: translateY(-15px) scale(1.35);
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .hero {
+        padding: 178px 64px 32px;
+        min-height: 384px;
+    }
+
+    .heroContent {
+        flex-direction: row;
+        gap: 73px;
+    }
+
+    .heroTitle {
+        max-width: 760px;
+        font-size: 90px;
+    }
+
+    .homeImage {
+        height: 384px;
+        transform: translateY(0) scale(1);
     }
 }

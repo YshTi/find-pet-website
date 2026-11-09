@@ -24,13 +24,13 @@
 }
 
 .home.header .logoutButton {
-    background-color: var(--color-white);
-    border-color: var(--color-white);
+    background-color: var(--color-surface-accent);
+    border-color: var(--color-surface-accent);
     color: var(--color-primary);
 }
 
 .home.header .logoutButton:hover {
-    background-color: var(--color-surface-accent);
+    background-color: var(--color-surface-dark-accent);
 }
 
 .menu {

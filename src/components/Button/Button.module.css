@@ -28,7 +28,7 @@
 
 .primary {
   background-color: var(--color-primary);
-  border-color: var(--color-white);
+  border-color: var(--color-white-highlight);
   color: var(--color-white);
 }
 
