@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
+import type { FormikHelpers } from 'formik';
+import type { ChangeEvent } from 'react';
 import * as Yup from 'yup';
-import { LuEye, LuCheck } from 'react-icons/lu';
+import { LuEye } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -19,6 +21,10 @@ import styles from './LoginForm.module.css';
 interface LoginValues {
   email: string;
   password: string;
+}
+
+interface LoginStatus {
+  serverError?: string;
 }
 
 const initialValues: LoginValues = {
@@ -45,18 +51,25 @@ export default function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (values: LoginValues) => {
+  const handleSubmit = async (
+    values: LoginValues,
+    { setStatus }: FormikHelpers<LoginValues>,
+  ) => {
+    setStatus(null);
+
     try {
       const response = await loginUser({
         email: values.email.trim(),
         password: values.password,
       });
 
-      // Set token for authenticated API requests.
+      // Set the token for future authenticated requests.
       api.defaults.headers.common.Authorization =
         `Bearer ${response.token}`;
+      
+      localStorage.setItem('token', response.token);
 
-      // Update Redux authentication state.
+      // Save the user and token in Redux.
       dispatch(
         setCredentials({
           user: response.user,
@@ -68,26 +81,28 @@ export default function LoginForm() {
 
       navigate('/profile', { replace: true });
     } catch (error: unknown) {
+      let message = 'Something went wrong. Please try again.';
+
       if (axios.isAxiosError(error)) {
         const apiMessage = error.response?.data?.message;
 
-        const message =
+        message =
           typeof apiMessage === 'string'
             ? apiMessage
             : error.response?.status === 401
-              ? 'Incorrect email or password'
-              : error.response?.status === 404
-                ? 'Account not found'
-                : 'Login failed. Please try again.';
-
-        toast.error(message);
-      } else {
-        toast.error(
-          error instanceof Error
-            ? error.message
-            : 'Something went wrong. Please try again.',
-        );
+              ? 'Email or password is invalid'
+              : 'Login failed. Please try again.';
+      } else if (error instanceof Error) {
+        message = error.message;
       }
+
+      // Display the inline error and turn both fields red.
+      setStatus({
+        serverError: message,
+      } satisfies LoginStatus);
+
+      // Also display the popup toast notification.
+      toast.error(message);
     }
   };
 
@@ -95,6 +110,7 @@ export default function LoginForm() {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
+      initialStatus={null}
       onSubmit={handleSubmit}
       validateOnBlur
       validateOnChange
@@ -105,31 +121,66 @@ export default function LoginForm() {
         touched,
         submitCount,
         isSubmitting,
+        status,
+        setStatus,
+        setFieldValue,
       }) => {
+        const serverErrorMessage =
+          (status as LoginStatus | null)?.serverError;
+
+        const serverError = Boolean(serverErrorMessage);
+
         const emailError = Boolean(
-          (touched.email || submitCount > 0) &&
-          errors.email,
+          serverError ||
+          ((touched.email || submitCount > 0) && errors.email),
         );
 
         const emailValid = Boolean(
+          !serverError &&
           touched.email &&
           values.email &&
           !errors.email,
         );
 
         const passwordError = Boolean(
-          (touched.password || submitCount > 0) &&
-          errors.password,
+          serverError ||
+          ((touched.password || submitCount > 0) &&
+            errors.password),
         );
 
         const passwordValid = Boolean(
+          !serverError &&
           touched.password &&
           values.password &&
           !errors.password,
         );
 
+        const handleEmailChange = (
+          event: ChangeEvent<HTMLInputElement>,
+        ) => {
+          setStatus(null);
+
+          void setFieldValue(
+            'email',
+            event.target.value,
+          );
+        };
+
+        const handlePasswordChange = (
+          event: ChangeEvent<HTMLInputElement>,
+        ) => {
+          setStatus(null);
+
+          void setFieldValue(
+            'password',
+            event.target.value,
+          );
+        };
+
         return (
           <Form className={styles.form} noValidate>
+            {/* Email */}
+
             <div className={styles.fieldGroup}>
               <div className={styles.inputWrapper}>
                 <Field
@@ -142,9 +193,12 @@ export default function LoginForm() {
                   aria-invalid={emailError}
                   aria-describedby={
                     emailError
-                      ? 'login-email-feedback'
+                      ? serverError
+                        ? 'login-server-error'
+                        : 'login-email-feedback'
                       : undefined
                   }
+                  onChange={handleEmailChange}
                   className={`${styles.input} ${
                     emailError
                       ? styles.error
@@ -162,23 +216,27 @@ export default function LoginForm() {
                 )}
 
                 {emailValid && (
-                  <LuCheck
+                  <Icon
+                    name="icon-check"
                     className={`${styles.checkIconAbsolute} ${styles.iconSize}`}
-                    aria-hidden="true"
                   />
                 )}
               </div>
 
-              {emailError && (
-                <p
-                  id="login-email-feedback"
-                  className={styles.errorText}
-                  role="alert"
-                >
-                  {errors.email}
-                </p>
-              )}
+              {!serverError &&
+                emailError &&
+                errors.email && (
+                  <p
+                    id="login-email-feedback"
+                    className={styles.errorText}
+                    role="alert"
+                  >
+                    {errors.email}
+                  </p>
+                )}
             </div>
+
+            {/* Password */}
 
             <div className={styles.fieldGroup}>
               <div className={styles.passwordWrapper}>
@@ -191,10 +249,15 @@ export default function LoginForm() {
                   aria-label="Password"
                   aria-invalid={passwordError}
                   aria-describedby={
-                    passwordError || passwordValid
-                      ? 'login-password-feedback'
-                      : undefined
+                    passwordError
+                      ? serverError
+                        ? 'login-server-error'
+                        : 'login-password-feedback'
+                      : passwordValid
+                        ? 'login-password-feedback'
+                        : undefined
                   }
+                  onChange={handlePasswordChange}
                   className={`${styles.input} ${
                     passwordError
                       ? styles.error
@@ -219,9 +282,9 @@ export default function LoginForm() {
 
                 <div className={styles.passwordIcons}>
                   {passwordValid && (
-                    <LuCheck
+                    <Icon
+                      name="icon-check"
                       className={`${styles.checkIcon} ${styles.iconSize}`}
-                      aria-hidden="true"
                     />
                   )}
 
@@ -252,15 +315,17 @@ export default function LoginForm() {
                 </div>
               </div>
 
-              {passwordError && (
-                <p
-                  id="login-password-feedback"
-                  className={styles.errorText}
-                  role="alert"
-                >
-                  {errors.password}
-                </p>
-              )}
+              {!serverError &&
+                passwordError &&
+                errors.password && (
+                  <p
+                    id="login-password-feedback"
+                    className={styles.errorText}
+                    role="alert"
+                  >
+                    {errors.password}
+                  </p>
+                )}
 
               {passwordValid && (
                 <p
@@ -272,13 +337,29 @@ export default function LoginForm() {
               )}
             </div>
 
+            {/* Backend error message */}
+
+            {serverError && (
+              <p
+                id="login-server-error"
+                className={styles.errorText}
+                role="alert"
+              >
+                {serverErrorMessage}
+              </p>
+            )}
+
+            {/* Submit button */}
+
             <Button
               type="submit"
               variant="primary"
               className={styles.submitButton}
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Logging in...' : 'Log in'}
+              {isSubmitting
+                ? 'Logging in...'
+                : 'Log in'}
             </Button>
           </Form>
         );

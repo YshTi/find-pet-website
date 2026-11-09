@@ -71,3 +71,24 @@ export async function loginUser(
 
   return normalizeAuthResponse(data);
 }
+
+
+export async function getCurrentUser(
+  token: string,
+): Promise<AuthUser> {
+  const { data } = await api.get<AuthUser>(
+    '/users/current',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  return data;
+}
+
+
+export async function logoutUser(): Promise<void> {
+  await api.post('/users/signout');
+}

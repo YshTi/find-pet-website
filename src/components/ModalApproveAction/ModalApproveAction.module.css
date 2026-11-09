@@ -1,0 +1,105 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(38, 38, 38, 0.5);
+}
+
+.modal {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 448px;
+    padding: 54px 28px 40px;
+    border-radius: 30px;
+    background-color: var(--color-white);
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(38, 38, 38, 0.12);
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: var(--color-text);
+}
+
+.closeIcon {
+    width: 24px;
+    height: 24px;
+}
+
+.title {
+    margin-bottom: 12px;
+    color: var(--color-text);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.description {
+    margin-bottom: 28px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.cancelButton,
+.confirmButton {
+    flex: 1;
+    height: 42px;
+    font-size: 14px;
+}
+
+.confirmButton {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.confirmButton:hover:not(:disabled) {
+    background-color: var(--color-primary-hover);
+    color: var(--color-white);
+}
+
+.closeButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+@media screen and (min-width: 768px) {
+    .modal {
+        padding: 64px 48px 48px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .cancelButton,
+    .confirmButton {
+        height: 48px;
+        font-size: 16px;
+    }
+}

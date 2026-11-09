@@ -26,6 +26,7 @@
 
   /* Borders */
   --color-border: rgba(38, 38, 38, 0.15);
+  --link-border: rgba(38, 38, 38, 0.4);
 
   /* Status */
   --color-success: #08aa83;
@@ -105,4 +106,8 @@ svg {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.homeLayout {
+  position: relative;
 }

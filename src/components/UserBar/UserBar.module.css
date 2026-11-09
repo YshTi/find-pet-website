@@ -1,0 +1,68 @@
+.userBar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-surface-accent);
+}
+
+.avatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.userIcon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-primary);
+}
+
+.userName {
+    display: none;
+    max-width: 140px;
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.home .userName {
+    color: var(--color-white);
+}
+
+.userBar:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .userIcon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .userName {
+        display: inline;
+    }
+}

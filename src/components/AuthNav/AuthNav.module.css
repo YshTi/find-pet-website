@@ -1,0 +1,66 @@
+.authNav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.login,
+.register {
+    height: 50px;
+    padding: 0 24px;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.header,
+.home.header .login,
+.home.header .register {
+    display: none;
+}
+
+.menu {
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.menu .login,
+.menu .register {
+    height: 42px;
+    width: 100%;
+    padding: 0 12px;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        display: flex;
+    }
+
+    .menu {
+        display: grid;
+        grid-template-columns: 119px 149px;
+        gap: 8px;
+    }
+
+    .menu .login,
+    .menu .register {
+        height: 50px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .home.header .login,
+    .home.header .register {
+        display: flex;
+    }
+
+    .home.header .login {
+        width: 119px;
+    }
+
+    .home.header .register {
+        width: 149px;
+        padding: 0 20px;
+    }
+}

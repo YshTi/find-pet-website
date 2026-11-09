@@ -1,47 +1,81 @@
 import { useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 import Container from '../Container/Container';
 import Icon from '../Icon/Icon';
+import Nav from '../Nav/Nav';
+import AuthNav from '../AuthNav/AuthNav';
+import UserNav from '../UserNav/UserNav';
 import MobileMenu from '../MobileMenu/MobileMenu';
+import ModalApproveAction from '../ModalApproveAction/ModalApproveAction';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logout } from '../../redux/auth/authSlice';
+import { logoutUser } from '../../services/authApi';
+import { api } from '../../services/api';
 
 import styles from './Header.module.css';
 
-const navigation = [
-  { label: 'News', to: '/news' },
-  { label: 'Find pet', to: '/notices' },
-  { label: 'Our friends', to: '/friends' },
-];
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const isLoggedIn = useAppSelector(
     (state) => state.auth.isLoggedIn,
   );
 
-  const user = useAppSelector((state) => state.auth.user);
+  const isHome = location.pathname === '/home';
 
-  const isHomePage = location.pathname === '/home';
-
-  const handleLogout = () => {
-    dispatch(logout());
+  const openLogoutModal = () => {
     setIsMenuOpen(false);
-    navigate('/home');
+    setIsLogoutModalOpen(true);
+  };
+
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+
+    setIsLoggingOut(true);
+
+    try {
+      await logoutUser();
+      toast.success('Successfully logged out!');
+    } catch (error: unknown) {
+      const message =
+        axios.isAxiosError(error) &&
+        typeof error.response?.data?.message === 'string'
+          ? error.response.data.message
+          : 'Could not end the server session.';
+
+      toast.error(message);
+    } finally {
+      delete api.defaults.headers.common.Authorization;
+
+      // Remove authentication-related storage.
+      localStorage.removeItem('token');
+
+      // Clear the Redux authentication state.
+      dispatch(logout());
+
+      setIsLoggingOut(false);
+      setIsLogoutModalOpen(false);
+      setIsMenuOpen(false);
+
+      navigate('/home', { replace: true });
+    }
   };
 
   return (
     <>
       <header
         className={`${styles.header} ${
-          isHomePage ? styles.homeHeader : ''
+          isHome ? styles.homeHeader : ''
         }`}
       >
         <Container>
@@ -60,77 +94,16 @@ export default function Header() {
               ve
             </Link>
 
-            <nav
-              className={styles.desktopNav}
-              aria-label="Main navigation"
-            >
-              {navigation.map(({ label, to }) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  className={({ isActive }) =>
-                    `${styles.navLink} ${
-                      isActive ? styles.activeLink : ''
-                    }`
-                  }
-                >
-                  {label}
-                </NavLink>
-              ))}
-            </nav>
+            <Nav />
 
             <div className={styles.headerActions}>
               {isLoggedIn ? (
-                <>
-                  <button
-                    type="button"
-                    className={styles.logoutButton}
-                    onClick={handleLogout}
-                  >
-                    LOG OUT
-                  </button>
-
-                  <Link
-                    to="/profile"
-                    className={styles.userLink}
-                    aria-label="My profile"
-                  >
-                    <span className={styles.avatar}>
-                      {user?.avatar ? (
-                        <img
-                          src={user.avatar}
-                          alt=""
-                          className={styles.avatarImage}
-                        />
-                      ) : (
-                        <Icon
-                          name="icon-user"
-                          className={styles.userIcon}
-                        />
-                      )}
-                    </span>
-
-                    <span className={styles.userName}>
-                      {user?.name || 'User'}
-                    </span>
-                  </Link>
-                </>
+                <UserNav
+                  isHome={isHome}
+                  onLogoutClick={openLogoutModal}
+                />
               ) : (
-                <div className={styles.authButtons}>
-                  <Link
-                    to="/login"
-                    className={styles.loginButton}
-                  >
-                    LOG IN
-                  </Link>
-
-                  <Link
-                    to="/register"
-                    className={styles.registerButton}
-                  >
-                    REGISTRATION
-                  </Link>
-                </div>
+                <AuthNav isHome={isHome} />
               )}
 
               <button
@@ -155,8 +128,16 @@ export default function Header() {
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         isLoggedIn={isLoggedIn}
-        userName={user?.name}
-        onLogout={handleLogout}
+        onLogoutClick={openLogoutModal}
+      />
+
+      <ModalApproveAction
+        isOpen={isLogoutModalOpen}
+        isLoading={isLoggingOut}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={() => {
+          void handleLogout();
+        }}
       />
     </>
   );

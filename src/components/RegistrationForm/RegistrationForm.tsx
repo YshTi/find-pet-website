@@ -191,6 +191,8 @@ export default function RegistrationForm() {
       // Add token to future requests.
       api.defaults.headers.common.Authorization =
         `Bearer ${response.token}`;
+      
+      localStorage.setItem('token', response.token);
 
       // Save authentication information in Redux.
       dispatch(

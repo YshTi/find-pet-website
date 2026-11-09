@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router';
 
+import AuthInitializer from './components/AuthInitializer/AuthInitializer';
+
 import MainLayout from './layouts/MainLayout';
 import PrivateRoute from './router/PrivateRoute';
 import RestrictedRoute from './router/RestrictedRoute';
@@ -16,29 +18,31 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainLayout />}>
-        <Route index element={<Navigate to="/home" replace />} />
+    <>
+      <AuthInitializer />
 
-        <Route path="home" element={<HomePage />} />
-        <Route path="news" element={<NewsPage />} />
-        <Route path="notices" element={<NoticesPage />} />
-        <Route path="friends" element={<FriendsPage />} />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Navigate to="/home" replace />} />
 
-        <Route element={<RestrictedRoute />}>
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="login" element={<LoginPage />} />
+          <Route path="home" element={<HomePage />} />
+          <Route path="news" element={<NewsPage />} />
+          <Route path="notices" element={<NoticesPage />} />
+          <Route path="friends" element={<FriendsPage />} />
+
+          <Route element={<RestrictedRoute />}>
+            <Route path="register" element={<RegisterPage />} />
+            <Route path="login" element={<LoginPage />} />
+          </Route>
+
+          <Route element={<PrivateRoute />}>
+            <Route path="profile" element={<ProfilePage />} />
+            <Route path="add-pet" element={<AddPetPage />} />
+          </Route>
+
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-
-        <Route path="add-pet" element={<AddPetPage />} />
-
-        <Route element={<PrivateRoute />}>
-          <Route path="profile" element={<ProfilePage />} />
-          {/* <Route path="add-pet" element={<AddPetPage />} /> */}
-        </Route>
-
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+      </Routes>
+    </>
   );
 }

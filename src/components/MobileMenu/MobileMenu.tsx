@@ -1,51 +1,72 @@
 import { useEffect, useRef } from 'react';
-import { Link, NavLink } from 'react-router';
 
 import Icon from '../Icon/Icon';
+import Nav from '../Nav/Nav';
+import AuthNav from '../AuthNav/AuthNav';
+import UserNav from '../UserNav/UserNav';
+
 import styles from './MobileMenu.module.css';
 
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   isLoggedIn: boolean;
-  userName?: string;
-  onLogout: () => void;
+  onLogoutClick: () => void;
 }
-
-const navigation = [
-  { label: 'News', to: '/news' },
-  { label: 'Find pet', to: '/notices' },
-  { label: 'Our friends', to: '/friends' },
-];
 
 export default function MobileMenu({
   isOpen,
   onClose,
   isLoggedIn,
-  userName,
-  onLogout,
+  onLogoutClick,
 }: MobileMenuProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
 
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const previousFocus = document.activeElement as HTMLElement | null;
 
+    document.body.style.overflow = 'hidden';
     closeButtonRef.current?.focus();
 
-    const handleEscape = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        event.preventDefault();
         onClose();
+      }
+
+      if (event.key === 'Tab') {
+        const focusable = menuRef.current?.querySelectorAll<HTMLElement>(
+          'button:not(:disabled), a[href]',
+        );
+
+        if (!focusable?.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === last
+        ) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleKeyDown);
+      previousFocus?.focus();
     };
   }, [isOpen, onClose]);
 
@@ -60,6 +81,7 @@ export default function MobileMenu({
       />
 
       <aside
+        ref={menuRef}
         id="mobile-navigation"
         className={styles.menu}
         role="dialog"
@@ -79,75 +101,24 @@ export default function MobileMenu({
           />
         </button>
 
-        <nav
-          className={styles.navigation}
-          aria-label="Mobile navigation"
-        >
-          {navigation.map(({ label, to }) => (
-            <NavLink
-              key={to}
-              to={to}
-              onClick={onClose}
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.activeLink : ''
-                }`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
+        <div className={styles.navigation}>
+          <Nav
+            variant="menu"
+            onNavigate={onClose}
+          />
+        </div>
 
-          {isLoggedIn && (
-            <NavLink
-              to="/profile"
-              onClick={onClose}
-              className={({ isActive }) =>
-                `${styles.navLink} ${
-                  isActive ? styles.activeLink : ''
-                }`
-              }
-            >
-              My profile
-            </NavLink>
-          )}
-        </nav>
-
-        <div className={styles.authActions}>
+        <div className={styles.actions}>
           {isLoggedIn ? (
-            <>
-              <button
-                type="button"
-                className={styles.logoutButton}
-                onClick={onLogout}
-              >
-                LOG OUT
-              </button>
-
-              {userName && (
-                <span className={styles.userName}>
-                  {userName}
-                </span>
-              )}
-            </>
+            <UserNav
+              variant="menu"
+              onLogoutClick={onLogoutClick}
+            />
           ) : (
-            <>
-              <Link
-                to="/login"
-                className={styles.loginButton}
-                onClick={onClose}
-              >
-                LOG IN
-              </Link>
-
-              <Link
-                to="/register"
-                className={styles.registerButton}
-                onClick={onClose}
-              >
-                REGISTRATION
-              </Link>
-            </>
+            <AuthNav
+              variant="menu"
+              onNavigate={onClose}
+            />
           )}
         </div>
       </aside>

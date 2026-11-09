@@ -15,11 +15,13 @@ interface AuthState {
   isRefreshing: boolean;
 }
 
+const savedToken = localStorage.getItem('token');
+
 const initialState: AuthState = {
   user: null,
-  token: null,
-  isLoggedIn: false,
-  isRefreshing: false,
+  token: savedToken,
+  isLoggedIn: Boolean(savedToken),
+  isRefreshing: Boolean(savedToken),
 };
 
 const authSlice = createSlice({
@@ -33,18 +35,31 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.isRefreshing = false;
     },
+
     updateUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
+
     setRefreshing: (state, action: PayloadAction<boolean>) => {
       state.isRefreshing = action.payload;
     },
-    logout: () => initialState,
+
+    logout: () => ({
+      user: null,
+      token: null,
+      isLoggedIn: false,
+      isRefreshing: false,
+    }),
   },
 });
 
-export const { setCredentials, updateUser, setRefreshing, logout } =
-  authSlice.actions;
+export const {
+  setCredentials,
+  updateUser,
+  setRefreshing,
+  logout,
+} = authSlice.actions;
 
 export default authSlice.reducer;
