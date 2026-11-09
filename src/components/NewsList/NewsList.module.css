@@ -1,0 +1,23 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+@media screen and (min-width: 768px) {
+    .list {
+        display: grid;
+        column-gap: 24px;
+        row-gap: 32px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .list {
+        display: grid;
+        column-gap: 35px;
+        row-gap: 40px;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}

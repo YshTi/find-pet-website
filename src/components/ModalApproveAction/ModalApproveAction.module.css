@@ -11,7 +11,7 @@
 .backdrop {
     position: absolute;
     inset: 0;
-    background-color: rgba(38, 38, 38, 0.5);
+    background-color: var(--color-text-secondary);
 }
 
 .modal {
@@ -64,7 +64,7 @@
     margin: 0 auto 20px;
 
     border-radius: 50%;
-    background-color: #fff4df;
+    background-color: var(--color-surface-accent);
 }
 
 .image {

@@ -18,7 +18,7 @@
   height: 60px;
 
   border-radius: 50%;
-  background-color: #fff4df;
+  background-color: var(--color-surface-accent);
 }
 
 .avatarImage {
@@ -47,7 +47,7 @@
 }
 
 .birthday {
-  color: rgba(38, 38, 38, 0.5);
+  color: var(--color-text-secondary);
   font-size: 12px;
   white-space: nowrap;
 }

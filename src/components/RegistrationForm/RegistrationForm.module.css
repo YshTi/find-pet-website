@@ -37,7 +37,7 @@
 }
 
 .input::placeholder {
-  color: rgba(38, 38, 38, 0.5);
+  color: var(--color-text-secondary);
 }
 
 .input:focus {
