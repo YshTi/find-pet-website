@@ -26,6 +26,9 @@ interface DropdownProps {
   onBlur?: () => void;
   placeholder?: string;
   className?: string;
+  triggerClassName?: string;
+  menuClassName?: string;
+  chevronClassName?: string;
   disabled?: boolean;
   invalid?: boolean;
   valid?: boolean;
@@ -40,6 +43,9 @@ export default function Dropdown({
   onBlur,
   placeholder = 'Select',
   className = '',
+  triggerClassName = '',
+  menuClassName = '',
+  chevronClassName = '',
   disabled = false,
   invalid = false,
   valid = false,
@@ -61,11 +67,12 @@ export default function Dropdown({
 
   const selectedOption = options.find((option) => option.value === value);
 
-  const triggerClassName = [
+  const triggerClasses = [
     styles.trigger,
     isOpen && styles.open,
     invalid && styles.invalid,
     valid && !invalid && styles.valid,
+    triggerClassName,
   ]
     .filter(Boolean)
     .join(' ');
@@ -256,7 +263,7 @@ export default function Dropdown({
       <button
         ref={triggerRef}
         type="button"
-        className={triggerClassName}
+        className={triggerClasses}
         onClick={handleTriggerClick}
         onKeyDown={handleTriggerKeyDown}
         aria-expanded={isOpen}
@@ -270,12 +277,12 @@ export default function Dropdown({
 
         <Icon
           name="icon-chevron-down"
-          className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''}`}
+          className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ''} ${chevronClassName}`}
         />
       </button>
 
       {isOpen && (
-        <div className={styles.menu}>
+        <div className={`${styles.menu} ${menuClassName}`}>
           <div
             ref={scrollRef}
             className={styles.scrollArea}
@@ -301,7 +308,7 @@ export default function Dropdown({
 
           <div
             ref={trackRef}
-            className={styles.scrollbarTrack}
+            className={`${styles.scrollbarTrack} dropdown-scrollbar-track`}
             style={{
               visibility: canScroll ? 'visible' : 'hidden',
             }}
@@ -310,7 +317,7 @@ export default function Dropdown({
           >
             {canScroll && (
               <div
-                className={styles.scrollbarThumb}
+                className={`${styles.scrollbarThumb} dropdown-scrollbar-thumb`}
                 style={{
                   height: `${thumbHeight}px`,
                   transform: `translateY(${thumbTop}px)`,

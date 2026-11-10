@@ -1,0 +1,43 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: var(--color-text-secondary);
+}
+
+.modal {
+    position: relative;
+    width: min(100%, 400px);
+    padding: 48px 24px 32px;
+    border-radius: 30px;
+    background: var(--color-white);
+    text-align: center;
+}
+
+.closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.actions a {
+    padding: 12px 24px;
+    border-radius: 30px;
+    background: var(--color-primary);
+    color: var(--color-white);
+    text-decoration: none;
+}

@@ -49,19 +49,19 @@ export default function SearchField({
         >
           <Icon
             name="icon-cross"
-            className={styles.clearIcon}
+            className={`${styles.clearIcon} clear-icon`}
           />
         </button>
       )}
 
       <button
         type="submit"
-        className={styles.searchButton}
+        className={`${styles.searchButton} search-button`}
         aria-label="Search"
       >
         <Icon
           name="icon-search"
-          className={styles.searchIcon}
+          className={`${styles.searchIcon} search-icon`}
         />
       </button>
     </form>

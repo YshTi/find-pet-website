@@ -63,6 +63,7 @@
   width: 18px;
   height: 18px;
   color: var(--color-text);
+  stroke-width: 1.5;
   transition: transform 200ms ease;
 }
 
@@ -204,6 +205,7 @@
   .chevron {
     width: 20px;
     height: 20px;
+    stroke-width: 2;
   }
 
   .option {

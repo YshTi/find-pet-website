@@ -1,0 +1,565 @@
+.filters {
+    width: 100%;
+    padding: 20px;
+    border-radius: 30px;
+    background-color: var(--color-surface-accent);
+}
+
+.fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+}
+
+.fields>* {
+    min-width: 0;
+}
+
+.searchPet {
+    width: 100%;
+    min-width: 0;
+    height: 48px;
+    padding: 12px;
+    border: 1px solid transparent;
+    background-color: var(--color-white);
+}
+
+.searchPet :global(input::placeholder) {
+    color: var(--color-text);
+}
+
+.searchPet :global(.search-button) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 26px;
+    height: 18px;
+}
+
+.searchPet :global(.search-icon),
+.searchPet :global(.clear-icon) {
+    stroke-width: 1.5;
+}
+
+.twoFilters {
+    display: grid;
+    grid-template-columns: minmax(0, 143fr) minmax(0, 144fr);
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+.twoFilters>* {
+    min-width: 0;
+}
+
+.filterDropdown {
+    width: 100%;
+    min-width: 0;
+}
+
+.filterTrigger {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px;
+    border-color: transparent;
+    border-radius: 30px;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.filterTrigger:hover,
+.filterTrigger:focus-visible {
+    border-color: var(--color-primary);
+}
+
+.filterMenu {
+    z-index: 100;
+    height: 146px;
+    padding-bottom: 12px;
+    border: none;
+}
+
+.filterMenu :global(.dropdown-scrollbar-track) {
+    display: none;
+}
+
+.typeMenu {
+    height: 216px;
+}
+
+.typeMenu :global(.dropdown-scrollbar-track) {
+    display: block;
+    width: 8px;
+}
+
+.typeMenu :global(.dropdown-scrollbar-thumb) {
+    min-height: 100px;
+}
+
+.filterChevron {
+    width: 16px;
+    height: 16px;
+}
+
+.locationField {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.locationSelect {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.locationSelect :global(.location__control) {
+    min-height: 42px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    background-color: var(--color-white);
+    box-shadow: none;
+    cursor: text;
+}
+
+.locationSelect :global(.location__control:hover),
+.locationSelect :global(.location__control--is-focused),
+.locationSelect :global(.location__control--is-focused:hover) {
+    border-color: var(--color-primary);
+    box-shadow: none;
+}
+
+.locationSelect :global(.location__value-container) {
+    min-width: 0;
+    padding: 0 68px 0 12px;
+}
+
+.locationSelect :global(.location__placeholder) {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.locationSelect :global(.location__input-container) {
+    margin: 0;
+    padding: 0;
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.locationSelect :global(.location__input) {
+    color: var(--color-text);
+    font: inherit;
+}
+
+.locationSelect :global(.location__single-value) {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.locationSelect :global(.location__indicators) {
+    display: none;
+}
+
+.locationActions {
+    position: absolute;
+    z-index: 21;
+    top: 21px;
+    right: 12px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.locationClearButton,
+.locationSearchButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text);
+    cursor: pointer;
+}
+
+.locationClearIcon,
+.locationSearchIcon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.5;
+    pointer-events: none;
+}
+
+.locationClearButton:hover,
+.locationSearchButton:hover {
+    color: var(--color-primary);
+}
+
+.locationClearButton:focus-visible,
+.locationSearchButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.locationSelect :global(.location__menu) {
+    z-index: 30;
+    margin-top: 4px;
+    padding: 0;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--color-white);
+    box-shadow: none;
+    overflow: hidden;
+}
+
+.locationSelect :global(.location__menu-list) {
+    height: 94px;
+    max-height: 94px;
+    padding: 12px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.locationSelect :global(.location__menu-list::-webkit-scrollbar) {
+    display: none;
+}
+
+.locationSelect :global(.location__option) {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.03em;
+    cursor: pointer;
+}
+
+.locationSelect :global(.location__option:not(:last-child)) {
+    margin-bottom: 8px;
+}
+
+.locationSelect :global(.location__option--is-focused) {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.locationSelect :global(.location__option--is-selected) {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.locationHint :global(.location__menu) {
+    margin-top: 4px;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+.locationHint :global(.location__menu-list) {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    background: transparent;
+    overflow: visible;
+}
+
+.locationHint :global(.location__menu-notice) {
+    margin: 0;
+    padding: 0 12px;
+    background: transparent;
+    color: var(--color-error);
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.sortOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(38, 38, 38, 0.1);
+}
+
+.radioLabel {
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.radioLabel span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 12px;
+    border-radius: 30px;
+    background-color: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.29;
+    letter-spacing: -0.03em;
+    transition:
+        background-color 200ms ease,
+        color 200ms ease;
+}
+
+.radioLabel:hover span {
+    background-color: var(--color-surface-dark-accent);
+}
+
+.radio:checked+span,
+.radioLabel:hover .radio:checked+span {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.radio:focus-visible+span {
+    outline: 2px solid var(--color-text);
+    outline-offset: 2px;
+}
+
+.radioContent {
+    gap: 6px;
+}
+
+.radioCross {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--color-white);
+    stroke-width: 1.5;
+}
+
+.resetButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--color-text);
+    color: var(--color-white);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.resetButton:hover {
+    background-color: var(--color-primary);
+}
+
+.resetButton:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+@media screen and (min-width: 768px) {
+    .filters {
+        padding: 40px 32px;
+        margin-bottom: 32px;
+    }
+
+    .fields {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .searchPet {
+        flex: 0 0 265px;
+        width: 265px;
+        padding: 14px;
+    }
+
+    .searchPet :global(.search-icon),
+    .searchPet :global(.clear-icon) {
+        stroke-width: 2;
+    }
+
+    .twoFilters {
+        flex: 0 0 356px;
+        width: 356px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .filterDropdown {
+        max-width: 190px;
+    }
+
+    .fields>.filterDropdown {
+        flex: 0 0 190px;
+        width: 190px;
+    }
+
+    .filterTrigger {
+        min-height: 48px;
+    }
+
+    .filterMenu {
+        height: 160px;
+        padding-bottom: 14px;
+    }
+
+    .typeMenu {
+        height: 216px;
+    }
+
+    .filterChevron {
+        width: 18px;
+        height: 18px;
+    }
+
+    .locationField {
+        flex: 0 0 227px;
+        width: 227px;
+    }
+
+    .locationSelect :global(.location__control) {
+        min-height: 48px;
+    }
+
+    .locationSelect :global(.location__value-container) {
+        padding: 0 68px 0 14px;
+    }
+
+    .locationSelect :global(.location__placeholder),
+    .locationSelect :global(.location__input-container),
+    .locationSelect :global(.location__single-value) {
+        font-size: 16px;
+    }
+
+    .locationActions {
+        top: 24px;
+        right: 14px;
+    }
+
+    .locationClearButton,
+    .locationSearchButton,
+    .locationClearIcon,
+    .locationSearchIcon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .locationClearIcon,
+    .locationSearchIcon {
+        stroke-width: 2;
+    }
+
+    .locationSelect :global(.location__menu-list) {
+        height: 104px;
+        max-height: 104px;
+        padding: 14px;
+    }
+
+    .locationSelect :global(.location__option) {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    .locationHint :global(.location__menu-list) {
+        height: auto;
+        min-height: 0;
+        max-height: none;
+        padding: 0;
+    }
+
+    .locationHint :global(.location__menu-notice) {
+        padding: 0 14px;
+    }
+
+    .radioLabel span,
+    .resetButton {
+        padding: 14px;
+        font-size: 16px;
+        line-height: 1.25;
+    }
+
+    .radioCross {
+        stroke-width: 2;
+    }
+
+    .sortOptions {
+        gap: 8px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .filters {
+        padding: 40px;
+    }
+
+    .fields {
+        display: grid;
+        grid-template-columns:
+            minmax(0, 265fr) minmax(0, 200fr) minmax(0, 190fr) minmax(0, 190fr) minmax(0, 227fr);
+        gap: 16px;
+        align-items: center;
+    }
+
+    .searchPet {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .twoFilters {
+        display: contents;
+    }
+
+    .filterDropdown,
+    .fields>.filterDropdown {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+    }
+
+    .locationField {
+        width: 100%;
+        min-width: 0;
+    }
+}
