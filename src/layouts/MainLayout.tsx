@@ -7,9 +7,7 @@ export default function MainLayout() {
   const isHome = pathname === '/home';
 
   return (
-    <div
-      className={isHome ? 'homeLayout' : undefined}
-    >
+    <div className={isHome ? 'homeLayout' : undefined}>
       <Header />
       <main>
         <Outlet />

@@ -1,89 +1,89 @@
 .overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
 }
 
 .backdrop {
-    position: absolute;
-    inset: 0;
+  position: absolute;
+  inset: 0;
 }
 
 .menu {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    width: 218px;
-    height: 100dvh;
-    padding: 28px 20px 40px;
+  width: 218px;
+  height: 100dvh;
+  padding: 28px 20px 40px;
 
-    background-color: var(--color-white);
-    overflow-y: auto;
+  background-color: var(--color-white);
+  overflow-y: auto;
 }
 
 .closeButton {
-    position: absolute;
-    top: 28px;
-    right: 20px;
+  position: absolute;
+  top: 28px;
+  right: 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 32px;
-    height: 32px;
-    padding: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
 
-    border: none;
-    background: transparent;
-    color: var(--color-text);
+  border: none;
+  background: transparent;
+  color: var(--color-text);
 }
 
 .closeIcon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .navigation {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: auto;
 }
 
 .closeButton:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 @media screen and (min-width: 768px) {
-    .menu {
-        width: 374px;
-        padding: 39px 32px 40px;
-    }
+  .menu {
+    width: 374px;
+    padding: 39px 32px 40px;
+  }
 
-    .closeButton {
-        top: 36px;
-        right: 32px;
-    }
+  .closeButton {
+    top: 36px;
+    right: 32px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .overlay {
-        display: none;
-    }
+  .overlay {
+    display: none;
+  }
 }

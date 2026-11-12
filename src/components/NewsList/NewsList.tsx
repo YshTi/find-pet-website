@@ -8,12 +8,10 @@ interface NewsListProps {
   news: News[];
 }
 
-export default function NewsList({
-  news,
-}: NewsListProps) {
+export default function NewsList({ news }: NewsListProps) {
   return (
     <ul className={styles.list}>
-      {news.map(item => (
+      {news.map((item) => (
         <li key={item._id}>
           <NewsItem news={item} />
         </li>

@@ -19,19 +19,11 @@ export default function AuthNav({
       }`}
       onClick={onNavigate}
     >
-      <Button
-        to="/login"
-        variant="primary"
-        className={styles.login}
-      >
+      <Button to="/login" variant="primary" className={styles.login}>
         LOG IN
       </Button>
 
-      <Button
-        to="/register"
-        variant="secondary"
-        className={styles.register}
-      >
+      <Button to="/register" variant="secondary" className={styles.register}>
         REGISTRATION
       </Button>
     </div>

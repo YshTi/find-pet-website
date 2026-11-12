@@ -15,9 +15,7 @@ interface ModalNoticeProps {
   onFavorite: (id: string) => void;
 }
 
-function formatBirthday(
-  birthday: string | null,
-): string {
+function formatBirthday(birthday: string | null): string {
   if (!birthday) return 'Unknown';
 
   const date = new Date(birthday);
@@ -39,11 +37,9 @@ export default function ModalNotice({
   useEffect(() => {
     if (!notice) return;
 
-    const previousOverflow =
-      document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
 
-    const previousFocus =
-      document.activeElement as HTMLElement | null;
+    const previousFocus = document.activeElement as HTMLElement | null;
 
     document.body.style.overflow = 'hidden';
 
@@ -53,18 +49,12 @@ export default function ModalNotice({
       }
     };
 
-    document.addEventListener(
-      'keydown',
-      handleKeyDown,
-    );
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
 
-      document.removeEventListener(
-        'keydown',
-        handleKeyDown,
-      );
+      document.removeEventListener('keydown', handleKeyDown);
 
       previousFocus?.focus();
     };
@@ -75,7 +65,7 @@ export default function ModalNotice({
   return createPortal(
     <div
       className={styles.overlay}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
         }
@@ -96,23 +86,15 @@ export default function ModalNotice({
           <Icon name="icon-cross" />
         </button>
 
-        <img
-          src={notice.imgURL}
-          alt={notice.title}
-          className={styles.image}
-        />
+        <img src={notice.imgURL} alt={notice.title} className={styles.image} />
 
-        <h2 id="notice-modal-title">
-          {notice.title}
-        </h2>
+        <h2 id="notice-modal-title">{notice.title}</h2>
 
         <p>Popularity: {notice.popularity}</p>
 
         <p>Name: {notice.name}</p>
 
-        <p>
-          Birthday: {formatBirthday(notice.birthday)}
-        </p>
+        <p>Birthday: {formatBirthday(notice.birthday)}</p>
 
         <p>Sex: {notice.sex}</p>
         <p>Species: {notice.species}</p>
@@ -127,9 +109,7 @@ export default function ModalNotice({
             onClick={() => onFavorite(notice._id)}
             disabled={isFavoriteLoading}
           >
-            {isFavorite
-              ? 'Remove from favorites'
-              : 'Add to favorites'}
+            {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
           </button>
 
           {/*

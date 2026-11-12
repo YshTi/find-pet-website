@@ -51,10 +51,7 @@ export default function MobileMenu({
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
           last.focus();
-        } else if (
-          !event.shiftKey &&
-          document.activeElement === last
-        ) {
+        } else if (!event.shiftKey && document.activeElement === last) {
           event.preventDefault();
           first.focus();
         }
@@ -74,11 +71,7 @@ export default function MobileMenu({
 
   return (
     <div className={styles.overlay}>
-      <div
-        className={styles.backdrop}
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      <div className={styles.backdrop} onClick={onClose} aria-hidden="true" />
 
       <aside
         ref={menuRef}
@@ -95,30 +88,18 @@ export default function MobileMenu({
           onClick={onClose}
           aria-label="Close navigation menu"
         >
-          <Icon
-            name="icon-cross"
-            className={styles.closeIcon}
-          />
+          <Icon name="icon-cross" className={styles.closeIcon} />
         </button>
 
         <div className={styles.navigation}>
-          <Nav
-            variant="menu"
-            onNavigate={onClose}
-          />
+          <Nav variant="menu" onNavigate={onClose} />
         </div>
 
         <div className={styles.actions}>
           {isLoggedIn ? (
-            <UserNav
-              variant="menu"
-              onLogoutClick={onLogoutClick}
-            />
+            <UserNav variant="menu" onLogoutClick={onLogoutClick} />
           ) : (
-            <AuthNav
-              variant="menu"
-              onNavigate={onClose}
-            />
+            <AuthNav variant="menu" onNavigate={onClose} />
           )}
         </div>
       </aside>

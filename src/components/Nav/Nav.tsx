@@ -13,10 +13,7 @@ const links = [
   { to: '/friends', label: 'Our friends' },
 ];
 
-export default function Nav({
-  variant = 'desktop',
-  onNavigate,
-}: NavProps) {
+export default function Nav({ variant = 'desktop', onNavigate }: NavProps) {
   const { pathname } = useLocation();
 
   const isHome = pathname === '/home';
@@ -30,22 +27,14 @@ export default function Nav({
     .join(' ');
 
   return (
-    <nav
-      className={navClassName}
-      aria-label="Main navigation"
-    >
+    <nav className={navClassName} aria-label="Main navigation">
       {links.map(({ to, label }) => (
         <NavLink
           key={to}
           to={to}
           onClick={onNavigate}
           className={({ isActive }) =>
-            [
-              styles.link,
-              isActive && styles.active,
-            ]
-              .filter(Boolean)
-              .join(' ')
+            [styles.link, isActive && styles.active].filter(Boolean).join(' ')
           }
         >
           {label}

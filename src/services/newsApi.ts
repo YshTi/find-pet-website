@@ -1,9 +1,6 @@
 import type { NewsResponse } from '../types/news';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(
-  /\/+$/,
-  '',
-);
+const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
 
 interface GetNewsParams {
   keyword?: string;
@@ -27,15 +24,12 @@ export async function getNews({
     params.set('keyword', keyword.trim());
   }
 
-  const response = await fetch(
-    `${BASE_URL}/news?${params.toString()}`,
-    { signal },
-  );
+  const response = await fetch(`${BASE_URL}/news?${params.toString()}`, {
+    signal,
+  });
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch news: ${response.status}`,
-    );
+    throw new Error(`Failed to fetch news: ${response.status}`);
   }
 
   return (await response.json()) as NewsResponse;

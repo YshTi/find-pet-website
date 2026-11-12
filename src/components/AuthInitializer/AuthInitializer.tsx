@@ -3,11 +3,7 @@ import axios from 'axios';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 
-import {
-  updateUser,
-  setRefreshing,
-  logout,
-} from '../../redux/auth/authSlice';
+import { updateUser, setRefreshing, logout } from '../../redux/auth/authSlice';
 
 import { getCurrentUser } from '../../services/authApi';
 import { api } from '../../services/api';
@@ -25,8 +21,7 @@ export default function AuthInitializer() {
     let active = true;
 
     const restoreSession = async () => {
-      api.defaults.headers.common.Authorization =
-        `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       try {
         const user = await getCurrentUser(token);
@@ -38,10 +33,7 @@ export default function AuthInitializer() {
         if (!active) return;
 
         // Only invalidate the session if the token is rejected.
-        if (
-          axios.isAxiosError(error) &&
-          error.response?.status === 401
-        ) {
+        if (axios.isAxiosError(error) && error.response?.status === 401) {
           localStorage.removeItem('token');
           delete api.defaults.headers.common.Authorization;
           dispatch(logout());

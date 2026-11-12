@@ -5,21 +5,15 @@ import type {
   LocationOption,
 } from '../types/notices';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL
-  .replace(/\/+$/, '');
+const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
 
-async function getJSON<T>(
-  path: string,
-  signal?: AbortSignal,
-): Promise<T> {
+async function getJSON<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(`${BASE_URL}${path}`, {
     signal,
   });
 
   if (!response.ok) {
-    throw new Error(
-      `API error: ${response.status}`,
-    );
+    throw new Error(`API error: ${response.status}`);
   }
 
   return (await response.json()) as T;
@@ -67,47 +61,26 @@ export async function getNotices({
     params.set('sortBy', filters.sortBy);
   }
 
-  return getJSON<NoticesResponse>(
-    `/notices?${params.toString()}`,
-    signal,
-  );
+  return getJSON<NoticesResponse>(`/notices?${params.toString()}`, signal);
 }
 
 export function getNoticeById(
   id: string,
   signal?: AbortSignal,
 ): Promise<Notice> {
-  return getJSON<Notice>(
-    `/notices/${encodeURIComponent(id)}`,
-    signal,
-  );
+  return getJSON<Notice>(`/notices/${encodeURIComponent(id)}`, signal);
 }
 
-export function getNoticeCategories(
-  signal?: AbortSignal,
-): Promise<string[]> {
-  return getJSON<string[]>(
-    '/notices/categories',
-    signal,
-  );
+export function getNoticeCategories(signal?: AbortSignal): Promise<string[]> {
+  return getJSON<string[]>('/notices/categories', signal);
 }
 
-export function getNoticeSexes(
-  signal?: AbortSignal,
-): Promise<string[]> {
-  return getJSON<string[]>(
-    '/notices/sex',
-    signal,
-  );
+export function getNoticeSexes(signal?: AbortSignal): Promise<string[]> {
+  return getJSON<string[]>('/notices/sex', signal);
 }
 
-export function getNoticeSpecies(
-  signal?: AbortSignal,
-): Promise<string[]> {
-  return getJSON<string[]>(
-    '/notices/species',
-    signal,
-  );
+export function getNoticeSpecies(signal?: AbortSignal): Promise<string[]> {
+  return getJSON<string[]>('/notices/species', signal);
 }
 
 export function searchLocations(
@@ -118,8 +91,5 @@ export function searchLocations(
     keyword: keyword.trim(),
   });
 
-  return getJSON<LocationOption[]>(
-    `/cities?${params.toString()}`,
-    signal,
-  );
+  return getJSON<LocationOption[]>(`/cities?${params.toString()}`, signal);
 }

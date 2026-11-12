@@ -1,127 +1,127 @@
 .overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
 .backdrop {
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-text-secondary);
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-text-secondary);
 }
 
 .modal {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 448px;
-    padding: 40px 28px;
-    border-radius: 30px;
-    background-color: var(--color-white);
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(38, 38, 38, 0.12);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 448px;
+  padding: 40px 28px;
+  border-radius: 30px;
+  background-color: var(--color-white);
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(38, 38, 38, 0.12);
 }
 
 .closeButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border: none;
-    background: transparent;
-    color: var(--color-text);
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
 }
 
 .closeIcon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .title {
-    margin-bottom: 28px;
-    color: var(--color-text);
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
+  margin-bottom: 28px;
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .imageWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
 
-    border-radius: 50%;
-    background-color: var(--color-surface-accent);
+  border-radius: 50%;
+  background-color: var(--color-surface-accent);
 }
 
 .image {
-    display: block;
-    width: 44px;
-    height: 44px;
-    object-fit: contain;
+  display: block;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
 }
 
 .actions {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
 }
 
 .cancelButton,
 .confirmButton {
-    flex: 1;
-    height: 42px;
-    font-size: 14px;
+  flex: 1;
+  height: 42px;
+  font-size: 14px;
 }
 
 .confirmButton {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .confirmButton:hover:not(:disabled) {
-    background-color: var(--color-primary-hover);
-    color: var(--color-white);
+  background-color: var(--color-primary-hover);
+  color: var(--color-white);
 }
 
 .cancelButton {
-    background-color: rgba(38, 38, 38, 0.05);
-    color: var(--color-text);
+  background-color: rgba(38, 38, 38, 0.05);
+  color: var(--color-text);
 }
 
 .closeButton:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 3px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
 }
 
 @media screen and (min-width: 768px) {
-    .modal {
-        padding: 80px;
-    }
+  .modal {
+    padding: 80px;
+  }
 
-    .cancelButton,
-    .confirmButton {
-        height: 48px;
-        font-size: 16px;
-    }
+  .cancelButton,
+  .confirmButton {
+    height: 48px;
+    font-size: 16px;
+  }
 
-    .title {
-        font-size: 24px;
-        line-height: 1.17;
-        letter-spacing: -0.03em;
-    }
+  .title {
+    font-size: 24px;
+    line-height: 1.17;
+    letter-spacing: -0.03em;
+  }
 }

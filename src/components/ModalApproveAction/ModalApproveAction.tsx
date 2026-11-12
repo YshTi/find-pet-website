@@ -50,10 +50,7 @@ export default function ModalApproveAction({
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
           last.focus();
-        } else if (
-          !event.shiftKey &&
-          document.activeElement === last
-        ) {
+        } else if (!event.shiftKey && document.activeElement === last) {
           event.preventDefault();
           first.focus();
         }
@@ -95,18 +92,11 @@ export default function ModalApproveAction({
           disabled={isLoading}
           aria-label="Close confirmation"
         >
-          <Icon
-            name="icon-cross"
-            className={styles.closeIcon}
-          />
+          <Icon name="icon-cross" className={styles.closeIcon} />
         </button>
 
-         <div className={styles.imageWrapper}>
-          <img
-            src="/images/cat-icon.webp"
-            alt=""
-            className={styles.image}
-          />
+        <div className={styles.imageWrapper}>
+          <img src="/images/cat-icon.webp" alt="" className={styles.image} />
         </div>
 
         <h2 id="logout-title" className={styles.title}>
@@ -123,7 +113,7 @@ export default function ModalApproveAction({
           >
             {isLoading ? 'Logging out...' : 'Yes'}
           </Button>
-          
+
           <Button
             type="button"
             variant="secondary"

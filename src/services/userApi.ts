@@ -1,10 +1,6 @@
-import type {
-  CurrentUser,
-  CurrentUserFull,
-} from '../types/user';
+import type { CurrentUser, CurrentUserFull } from '../types/user';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL
-  .replace(/\/+$/, '');
+const BASE_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/+$/, '');
 
 async function getAuthorizedUser<T>(
   path: string,
@@ -20,9 +16,7 @@ async function getAuthorizedUser<T>(
   });
 
   if (!response.ok) {
-    throw new Error(
-      `Failed to fetch user: ${response.status}`,
-    );
+    throw new Error(`Failed to fetch user: ${response.status}`);
   }
 
   return (await response.json()) as T;
@@ -32,11 +26,7 @@ export function getCurrentUser(
   token: string,
   signal?: AbortSignal,
 ): Promise<CurrentUser> {
-  return getAuthorizedUser<CurrentUser>(
-    '/users/current',
-    token,
-    signal,
-  );
+  return getAuthorizedUser<CurrentUser>('/users/current', token, signal);
 }
 
 export function getCurrentUserFull(

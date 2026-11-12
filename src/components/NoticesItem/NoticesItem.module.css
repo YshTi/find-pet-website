@@ -1,140 +1,140 @@
 .card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 24px;
-    border-radius: 16px;
-    background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: var(--color-white);
 }
 
 .image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 16px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
 }
 
 .content {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    min-width: 0;
-    padding-top: 24px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: 24px;
 }
 
 .heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
 .title {
-    min-width: 0;
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.33;
-    color: var(--color-text);
+  min-width: 0;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.33;
+  color: var(--color-text);
 }
 
 .popularity {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  font-size: 14px;
 }
 
 .starIcon {
-    width: 16px;
-    height: 16px;
-    color: var(--color-primary);
+  width: 16px;
+  height: 16px;
+  color: var(--color-primary);
 }
 
 .details {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 4px;
-    margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0 0 16px;
 }
 
 .detail {
-    min-width: 0;
+  min-width: 0;
 }
 
 .detail dt {
-    margin-bottom: 4px;
-    font-size: 10px;
-    color: #888;
+  margin-bottom: 4px;
+  font-size: 10px;
+  color: #888;
 }
 
 .detail dd {
-    margin: 0;
-    font-size: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  margin: 0;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .comment {
-    margin: 0 0 24px;
-    font-size: 14px;
-    line-height: 1.29;
-    color: var(--color-text);
+  margin: 0 0 24px;
+  font-size: 14px;
+  line-height: 1.29;
+  color: var(--color-text);
 
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
 }
 
 .actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
 }
 
 .learnMore {
-    flex: 1;
-    height: 42px;
-    border: none;
-    border-radius: 30px;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    font-weight: 700;
-    cursor: pointer;
+  flex: 1;
+  height: 42px;
+  border: none;
+  border-radius: 30px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .favoriteButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--color-surface-accent);
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-surface-accent);
+  cursor: pointer;
 }
 
 .favoriteButton:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .heartIcon {
-    width: 18px;
-    height: 18px;
-    fill: none;
-    stroke: var(--color-primary);
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-primary);
 }
 
 .isFavorite {
-    fill: var(--color-primary);
+  fill: var(--color-primary);
 }

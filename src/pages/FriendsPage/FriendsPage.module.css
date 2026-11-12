@@ -1,28 +1,28 @@
 .friendsPage {
-    padding-top: 26px;
-    padding-bottom: 80px;
+  padding-top: 26px;
+  padding-bottom: 80px;
 }
 
 .friendsTitle {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 @media screen and (min-width: 768px) {
-    .friendsPage {
-        padding-top: 53px;
-    }
+  .friendsPage {
+    padding-top: 53px;
+  }
 
-    .friendsTitle {
-        margin-bottom: 44px;
-    }
+  .friendsTitle {
+    margin-bottom: 44px;
+  }
 }
 
 @media screen and (min-width: 1440px) {
-    .friendsPage {
-        padding-top: 64px;
-    }
+  .friendsPage {
+    padding-top: 64px;
+  }
 
-    .friendsTitle {
-        margin-bottom: 60px;
-    }
+  .friendsTitle {
+    margin-bottom: 60px;
+  }
 }

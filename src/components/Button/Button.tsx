@@ -22,6 +22,14 @@ export default function Button({
   const classes = `${styles.button} ${styles[variant]} ${className}`;
 
   if (to) {
+    if (to.startsWith('mailto:') || to.startsWith('tel:')) {
+      return (
+        <a href={to} className={classes}>
+          {children}
+        </a>
+      );
+    }
+
     return (
       <Link to={to} className={classes}>
         {children}

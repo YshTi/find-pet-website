@@ -1,101 +1,101 @@
 .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 40px;
 }
 
 .pages {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .arrow,
 .page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
-    width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
-    height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+  width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+  height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
 
-    padding: 0;
-    border: 1px solid rgba(26,26,26,0.20);
-    border-radius: 100%;
-    background-color: transparent;
+  padding: 0;
+  border: 1px solid rgba(26, 26, 26, 0.2);
+  border-radius: 100%;
+  background-color: transparent;
 
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.29;
-    cursor: pointer;
-    transition:
-        background-color 200ms ease,
-        color 200ms ease;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.29;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
 .page {
-    border-color: rgba(26,26,26,0.05);
+  border-color: rgba(26, 26, 26, 0.05);
 }
 
 .arrow:hover:not(:disabled),
 .page:hover:not(.active) {
-    background-color: var(--color-surface-dark-accent);
-    border-color: var(--color-primary);
+  background-color: var(--color-surface-dark-accent);
+  border-color: var(--color-primary);
 }
 
 .arrowIcon {
-    width: 20px;
-    height: 20px;
-    padding: 4px 7px;
+  width: 20px;
+  height: 20px;
+  padding: 4px 7px;
 }
 
 .arrowIconDouble {
-    width: 6px;
-    height: 12px;
+  width: 6px;
+  height: 12px;
 }
 
 .paginButtons {
-    display: inline-flex;
-    gap: 6px;
+  display: inline-flex;
+  gap: 6px;
 }
 
 .active {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .arrow:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 .ellipsis {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 
-    width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
-    height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
-    padding: 0;
+  width: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+  height: clamp(30px, calc(30px + (100vw - 320px) * 10 / 55), 40px);
+  padding: 0;
 
-    border: 1px solid rgba(26, 26, 26, 0.05);
-    border-radius: 50%;
-    background-color: transparent;
+  border: 1px solid rgba(26, 26, 26, 0.05);
+  border-radius: 50%;
+  background-color: transparent;
 
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color-text);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text);
 
-    cursor: default;
-    user-select: none;
+  cursor: default;
+  user-select: none;
 
-    /*uncomment if you want ellipses to be working button*/
+  /*uncomment if you want ellipses to be working button*/
 
-    /* cursor: pointer;
+  /* cursor: pointer;
     transition:
         background-color 200ms ease,
         border-color 200ms ease; */
@@ -114,45 +114,44 @@
 }
 */
 
-
 .arrow:focus-visible,
 .page:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 @media screen and (min-width: 768px) {
-    .pagination {
-        padding-top: 60px;
-        justify-content: center;
+  .pagination {
+    padding-top: 60px;
+    justify-content: center;
 
-        gap: 24px;
-    }
+    gap: 24px;
+  }
 
-    .arrow,
-    .page {
-        width: 44px;
-        height: 44px;
-        font-size: 18px;
-    }
+  .arrow,
+  .page {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
 
-    .paginButtons {
-        gap: 8px;
-    }
+  .paginButtons {
+    gap: 8px;
+  }
 
-    .arrowIcon {
-        width: 24px;
-        height: 24px;
-        padding: 5px 8px;
-    }
+  .arrowIcon {
+    width: 24px;
+    height: 24px;
+    padding: 5px 8px;
+  }
 
-    .arrowIconDouble {
-        width: 8px;
-        height: 14px;
-    }
+  .arrowIconDouble {
+    width: 8px;
+    height: 14px;
+  }
 
-    .ellipsis {
-        width: 44px;
-        height: 44px;
-    }
+  .ellipsis {
+    width: 44px;
+    height: 44px;
+  }
 }

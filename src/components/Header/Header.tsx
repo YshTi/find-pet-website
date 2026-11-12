@@ -27,9 +27,7 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const isLoggedIn = useAppSelector(
-    (state) => state.auth.isLoggedIn,
-  );
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const isHome = location.pathname === '/home';
 
@@ -73,11 +71,7 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={`${styles.header} ${
-          isHome ? styles.homeHeader : ''
-        }`}
-      >
+      <header className={`${styles.header} ${isHome ? styles.homeHeader : ''}`}>
         <Container className={styles.homeHeaderContainer}>
           <div className={styles.headerInner}>
             <Link
@@ -87,10 +81,7 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               petl
-              <Icon
-                name="icon-heart-filled"
-                className={styles.logoHeart}
-              />
+              <Icon name="icon-heart-filled" className={styles.logoHeart} />
               ve
             </Link>
 
@@ -98,10 +89,7 @@ export default function Header() {
 
             <div className={styles.headerActions}>
               {isLoggedIn ? (
-                <UserNav
-                  isHome={isHome}
-                  onLogoutClick={openLogoutModal}
-                />
+                <UserNav isHome={isHome} onLogoutClick={openLogoutModal} />
               ) : (
                 <AuthNav isHome={isHome} />
               )}
@@ -114,10 +102,7 @@ export default function Header() {
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-navigation"
               >
-                <Icon
-                  name="icon-menu-01"
-                  className={styles.menuIcon}
-                />
+                <Icon name="icon-menu-01" className={styles.menuIcon} />
               </button>
             </div>
           </div>

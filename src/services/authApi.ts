@@ -32,9 +32,7 @@ export interface LoginData {
   password: string;
 }
 
-function normalizeAuthResponse(
-  data: ApiAuthResponse,
-): AuthResponse {
+function normalizeAuthResponse(data: ApiAuthResponse): AuthResponse {
   if (!data.token || !data.email || !data.name) {
     throw new Error('Unexpected authentication response');
   }
@@ -53,17 +51,12 @@ function normalizeAuthResponse(
 export async function registerUser(
   userData: RegisterData,
 ): Promise<AuthResponse> {
-  const { data } = await api.post<ApiAuthResponse>(
-    '/users/signup',
-    userData,
-  );
+  const { data } = await api.post<ApiAuthResponse>('/users/signup', userData);
 
   return normalizeAuthResponse(data);
 }
 
-export async function loginUser(
-  credentials: LoginData,
-): Promise<AuthResponse> {
+export async function loginUser(credentials: LoginData): Promise<AuthResponse> {
   const { data } = await api.post<ApiAuthResponse>(
     '/users/signin',
     credentials,
@@ -72,22 +65,15 @@ export async function loginUser(
   return normalizeAuthResponse(data);
 }
 
-
-export async function getCurrentUser(
-  token: string,
-): Promise<AuthUser> {
-  const { data } = await api.get<AuthUser>(
-    '/users/current',
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+export async function getCurrentUser(token: string): Promise<AuthUser> {
+  const { data } = await api.get<AuthUser>('/users/current', {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
 
   return data;
 }
-
 
 export async function logoutUser(): Promise<void> {
   await api.post('/users/signout');

@@ -32,8 +32,7 @@ const initialValues: LoginValues = {
   password: '',
 };
 
-const emailRegex =
-  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -64,9 +63,8 @@ export default function LoginForm() {
       });
 
       // Set the token for future authenticated requests.
-      api.defaults.headers.common.Authorization =
-        `Bearer ${response.token}`;
-      
+      api.defaults.headers.common.Authorization = `Bearer ${response.token}`;
+
       localStorage.setItem('token', response.token);
 
       // Save the user and token in Redux.
@@ -125,27 +123,21 @@ export default function LoginForm() {
         setStatus,
         setFieldValue,
       }) => {
-        const serverErrorMessage =
-          (status as LoginStatus | null)?.serverError;
+        const serverErrorMessage = (status as LoginStatus | null)?.serverError;
 
         const serverError = Boolean(serverErrorMessage);
 
         const emailError = Boolean(
-          serverError ||
-          ((touched.email || submitCount > 0) && errors.email),
+          serverError || ((touched.email || submitCount > 0) && errors.email),
         );
 
         const emailValid = Boolean(
-          !serverError &&
-          touched.email &&
-          values.email &&
-          !errors.email,
+          !serverError && touched.email && values.email && !errors.email,
         );
 
         const passwordError = Boolean(
           serverError ||
-          ((touched.password || submitCount > 0) &&
-            errors.password),
+          ((touched.password || submitCount > 0) && errors.password),
         );
 
         const passwordValid = Boolean(
@@ -155,26 +147,16 @@ export default function LoginForm() {
           !errors.password,
         );
 
-        const handleEmailChange = (
-          event: ChangeEvent<HTMLInputElement>,
-        ) => {
+        const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
           setStatus(null);
 
-          void setFieldValue(
-            'email',
-            event.target.value,
-          );
+          void setFieldValue('email', event.target.value);
         };
 
-        const handlePasswordChange = (
-          event: ChangeEvent<HTMLInputElement>,
-        ) => {
+        const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
           setStatus(null);
 
-          void setFieldValue(
-            'password',
-            event.target.value,
-          );
+          void setFieldValue('password', event.target.value);
         };
 
         return (
@@ -200,11 +182,7 @@ export default function LoginForm() {
                   }
                   onChange={handleEmailChange}
                   className={`${styles.input} ${
-                    emailError
-                      ? styles.error
-                      : emailValid
-                        ? styles.valid
-                        : ''
+                    emailError ? styles.error : emailValid ? styles.valid : ''
                   }`}
                 />
 
@@ -223,17 +201,15 @@ export default function LoginForm() {
                 )}
               </div>
 
-              {!serverError &&
-                emailError &&
-                errors.email && (
-                  <p
-                    id="login-email-feedback"
-                    className={styles.errorText}
-                    role="alert"
-                  >
-                    {errors.email}
-                  </p>
-                )}
+              {!serverError && emailError && errors.email && (
+                <p
+                  id="login-email-feedback"
+                  className={styles.errorText}
+                  role="alert"
+                >
+                  {errors.email}
+                </p>
+              )}
             </div>
 
             {/* Password */}
@@ -265,17 +241,12 @@ export default function LoginForm() {
                         ? styles.valid
                         : ''
                   } ${
-                    !showPassword && values.password
-                      ? styles.maskedInput
-                      : ''
+                    !showPassword && values.password ? styles.maskedInput : ''
                   }`}
                 />
 
                 {!showPassword && values.password && (
-                  <span
-                    className={styles.stars}
-                    aria-hidden="true"
-                  >
+                  <span className={styles.stars} aria-hidden="true">
                     {'*'.repeat(values.password.length)}
                   </span>
                 )}
@@ -291,47 +262,33 @@ export default function LoginForm() {
                   <button
                     type="button"
                     className={styles.eyeButton}
-                    onClick={() =>
-                      setShowPassword(
-                        (previous) => !previous,
-                      )
-                    }
+                    onClick={() => setShowPassword((previous) => !previous)}
                     aria-label={
-                      showPassword
-                        ? 'Hide password'
-                        : 'Show password'
+                      showPassword ? 'Hide password' : 'Show password'
                     }
                     aria-pressed={showPassword}
                   >
                     {showPassword ? (
                       <LuEye className={styles.iconSize} />
                     ) : (
-                      <Icon
-                        name="icon-eye-off"
-                        className={styles.iconSize}
-                      />
+                      <Icon name="icon-eye-off" className={styles.iconSize} />
                     )}
                   </button>
                 </div>
               </div>
 
-              {!serverError &&
-                passwordError &&
-                errors.password && (
-                  <p
-                    id="login-password-feedback"
-                    className={styles.errorText}
-                    role="alert"
-                  >
-                    {errors.password}
-                  </p>
-                )}
-
-              {passwordValid && (
+              {!serverError && passwordError && errors.password && (
                 <p
                   id="login-password-feedback"
-                  className={styles.successText}
+                  className={styles.errorText}
+                  role="alert"
                 >
+                  {errors.password}
+                </p>
+              )}
+
+              {passwordValid && (
+                <p id="login-password-feedback" className={styles.successText}>
                   Password is secure
                 </p>
               )}
@@ -357,9 +314,7 @@ export default function LoginForm() {
               className={styles.submitButton}
               disabled={isSubmitting}
             >
-              {isSubmitting
-                ? 'Logging in...'
-                : 'Log in'}
+              {isSubmitting ? 'Logging in...' : 'Log in'}
             </Button>
           </Form>
         );

@@ -18,16 +18,11 @@ function getVisiblePages(
   totalPages: number,
   visibleCount: number,
 ): PageItem[] {
-  const groupIndex = Math.floor(
-    (currentPage - 1) / visibleCount,
-  );
+  const groupIndex = Math.floor((currentPage - 1) / visibleCount);
 
   const startPage = groupIndex * visibleCount + 1;
 
-  const endPage = Math.min(
-    startPage + visibleCount - 1,
-    totalPages,
-  );
+  const endPage = Math.min(startPage + visibleCount - 1, totalPages);
 
   const pages: PageItem[] = [];
 
@@ -74,11 +69,7 @@ export default function Pagination({
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === totalPages;
 
-  const visiblePages = getVisiblePages(
-    currentPage,
-    totalPages,
-    visibleCount,
-  );
+  const visiblePages = getVisiblePages(currentPage, totalPages, visibleCount);
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return;
@@ -133,14 +124,8 @@ export default function Pagination({
           disabled={isFirstPage}
           aria-label="First page"
         >
-          <Icon
-            name="icon-small-left"
-            className={styles.arrowIconDouble}
-          />
-          <Icon
-            name="icon-small-left"
-            className={styles.arrowIconDouble}
-          />
+          <Icon name="icon-small-left" className={styles.arrowIconDouble} />
+          <Icon name="icon-small-left" className={styles.arrowIconDouble} />
         </button>
 
         <button
@@ -150,10 +135,7 @@ export default function Pagination({
           disabled={isFirstPage}
           aria-label="Previous page"
         >
-          <Icon
-            name="icon-small-left"
-            className={styles.arrowIcon}
-          />
+          <Icon name="icon-small-left" className={styles.arrowIcon} />
         </button>
       </div>
 
@@ -167,7 +149,7 @@ export default function Pagination({
             >
               ...
             </span>
-
+          ) : (
             /*
              * OPTIONAL: Clickable ellipsis
              *
@@ -184,7 +166,6 @@ export default function Pagination({
              *   ...
              * </button>
              */
-          ) : (
             <button
               key={page}
               type="button"
@@ -193,9 +174,7 @@ export default function Pagination({
               }`}
               onClick={() => handlePageChange(page)}
               aria-label={`Page ${page}`}
-              aria-current={
-                currentPage === page ? 'page' : undefined
-              }
+              aria-current={currentPage === page ? 'page' : undefined}
             >
               {page}
             </button>
@@ -211,10 +190,7 @@ export default function Pagination({
           disabled={isLastPage}
           aria-label="Next page"
         >
-          <Icon
-            name="icon-small-right"
-            className={styles.arrowIcon}
-          />
+          <Icon name="icon-small-right" className={styles.arrowIcon} />
         </button>
 
         <button
@@ -224,14 +200,8 @@ export default function Pagination({
           disabled={isLastPage}
           aria-label="Last page"
         >
-          <Icon
-            name="icon-small-right"
-            className={styles.arrowIconDouble}
-          />
-          <Icon
-            name="icon-small-right"
-            className={styles.arrowIconDouble}
-          />
+          <Icon name="icon-small-right" className={styles.arrowIconDouble} />
+          <Icon name="icon-small-right" className={styles.arrowIconDouble} />
         </button>
       </div>
     </nav>

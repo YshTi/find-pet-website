@@ -32,10 +32,7 @@ export default function UserNav({
       </Button>
 
       {variant === 'header' && (
-        <UserBar
-          isHome={isHome}
-          onNavigate={onNavigate}
-        />
+        <UserBar isHome={isHome} onNavigate={onNavigate} />
       )}
     </div>
   );

@@ -33,10 +33,7 @@ interface NoticesPageProps {
   token?: string | null;
 
   // Must call the real favorite add/remove API.
-  onToggleFavorite?: (
-    id: string,
-    isFavorite: boolean,
-  ) => Promise<void>;
+  onToggleFavorite?: (id: string, isFavorite: boolean) => Promise<void>;
 }
 
 export default function NoticesPage({
@@ -45,9 +42,7 @@ export default function NoticesPage({
 }: NoticesPageProps) {
   const isAuthenticated = Boolean(token);
 
-  const [filters, setFilters] = useState<NoticeFilters>(
-    defaultNoticeFilters,
-  );
+  const [filters, setFilters] = useState<NoticeFilters>(defaultNoticeFilters);
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -58,31 +53,26 @@ export default function NoticesPage({
   const [sexes, setSexes] = useState<string[]>([]);
   const [species, setSpecies] = useState<string[]>([]);
 
-  const [currentUser, setCurrentUser] =
-    useState<CurrentUserFull | null>(null);
+  const [currentUser, setCurrentUser] = useState<CurrentUserFull | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isUserLoading, setIsUserLoading] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
 
-  const [isAttentionOpen, setIsAttentionOpen] =
-    useState(false);
+  const [isAttentionOpen, setIsAttentionOpen] = useState(false);
 
-  const [selectedNotice, setSelectedNotice] =
-    useState<Notice | null>(null);
+  const [selectedNotice, setSelectedNotice] = useState<Notice | null>(null);
 
-  const [isDetailsLoading, setIsDetailsLoading] =
-    useState(false);
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
 
-  const [pendingFavoriteId, setPendingFavoriteId] =
-    useState<string | null>(null);
+  const [pendingFavoriteId, setPendingFavoriteId] = useState<string | null>(
+    null,
+  );
 
   // Favorites come from the authenticated user's profile.
   const favoriteIds =
-    currentUser?.noticesFavorites?.map(
-      notice => notice._id,
-    ) ?? [];
+    currentUser?.noticesFavorites?.map((notice) => notice._id) ?? [];
 
   // Load filter options independently.
   useEffect(() => {
@@ -97,37 +87,24 @@ export default function NoticesPage({
 
       if (controller.signal.aborted) return;
 
-      const [
-        categoriesResult,
-        sexesResult,
-        speciesResult,
-      ] = results;
+      const [categoriesResult, sexesResult, speciesResult] = results;
 
       if (categoriesResult.status === 'fulfilled') {
         setCategories(categoriesResult.value);
       } else {
-        console.error(
-          'Categories request failed:',
-          categoriesResult.reason,
-        );
+        console.error('Categories request failed:', categoriesResult.reason);
       }
 
       if (sexesResult.status === 'fulfilled') {
         setSexes(sexesResult.value);
       } else {
-        console.error(
-          'Sexes request failed:',
-          sexesResult.reason,
-        );
+        console.error('Sexes request failed:', sexesResult.reason);
       }
 
       if (speciesResult.status === 'fulfilled') {
         setSpecies(speciesResult.value);
       } else {
-        console.error(
-          'Species request failed:',
-          speciesResult.reason,
-        );
+        console.error('Species request failed:', speciesResult.reason);
       }
     };
 
@@ -176,7 +153,6 @@ export default function NoticesPage({
     return () => controller.abort();
   }, [filters, page]);
 
-  
   useEffect(() => {
     if (!token) return;
 
@@ -186,10 +162,7 @@ export default function NoticesPage({
       try {
         setIsUserLoading(true);
 
-        const user = await getCurrentUserFull(
-          token,
-          controller.signal,
-        );
+        const user = await getCurrentUserFull(token, controller.signal);
 
         if (!controller.signal.aborted) {
           setCurrentUser(user);
@@ -213,10 +186,7 @@ export default function NoticesPage({
     };
   }, [token]);
 
-
-  const handleFiltersChange = (
-    nextFilters: NoticeFilters,
-  ) => {
+  const handleFiltersChange = (nextFilters: NoticeFilters) => {
     setFilters(nextFilters);
     setPage(1);
   };
@@ -240,10 +210,7 @@ export default function NoticesPage({
 
       setSelectedNotice(notice);
     } catch (error) {
-      console.error(
-        'Failed to load notice details:',
-        error,
-      );
+      console.error('Failed to load notice details:', error);
 
       setError('Failed to load notice details.');
     } finally {
@@ -288,9 +255,7 @@ export default function NoticesPage({
   return (
     <main className={styles.page}>
       <Container className={styles.petFilters}>
-        <h1 className={styles.title}>
-          Find your favorite pet
-        </h1>
+        <h1 className={styles.title}>Find your favorite pet</h1>
 
         <NoticesFilters
           filters={filters}
@@ -312,23 +277,15 @@ export default function NoticesPage({
 
       <Container>
         {isLoading ? (
-          <p className={styles.status}>
-            Loading notices...
-          </p>
+          <p className={styles.status}>Loading notices...</p>
         ) : notices.length > 0 ? (
           <>
             <NoticesList
               notices={notices}
               favoriteIds={favoriteIds}
-              pendingFavoriteId={
-                isUserLoading ? null : pendingFavoriteId
-              }
-              onLearnMore={id =>
-                void handleLearnMore(id)
-              }
-              onFavorite={id =>
-                void handleFavorite(id)
-              }
+              pendingFavoriteId={isUserLoading ? null : pendingFavoriteId}
+              onLearnMore={(id) => void handleLearnMore(id)}
+              onFavorite={(id) => void handleFavorite(id)}
             />
 
             <Pagination
@@ -339,16 +296,10 @@ export default function NoticesPage({
             />
           </>
         ) : !error ? (
-          <p className={styles.status}>
-            No notices found.
-          </p>
+          <p className={styles.status}>No notices found.</p>
         ) : null}
 
-        {isDetailsLoading && (
-          <p role="status">
-            Loading notice details...
-          </p>
-        )}
+        {isDetailsLoading && <p role="status">Loading notice details...</p>}
       </Container>
 
       <ModalAttention
@@ -359,15 +310,11 @@ export default function NoticesPage({
       <ModalNotice
         notice={selectedNotice}
         isFavorite={
-          selectedNotice
-            ? favoriteIds.includes(selectedNotice._id)
-            : false
+          selectedNotice ? favoriteIds.includes(selectedNotice._id) : false
         }
-        isFavoriteLoading={
-          pendingFavoriteId === selectedNotice?._id
-        }
+        isFavoriteLoading={pendingFavoriteId === selectedNotice?._id}
         onClose={() => setSelectedNotice(null)}
-        onFavorite={id => void handleFavorite(id)}
+        onFavorite={(id) => void handleFavorite(id)}
       />
     </main>
   );

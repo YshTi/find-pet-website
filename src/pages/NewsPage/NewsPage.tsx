@@ -82,25 +82,21 @@ export default function NewsPage() {
         />
       </div>
 
-        {isLoading && <p>Loading news...</p>}
+      {isLoading && <p>Loading news...</p>}
 
-        {error && <p role="alert">{error}</p>}
+      {error && <p role="alert">{error}</p>}
 
-        {!isLoading && !error && (
-          <>
-            {news.length > 0 ? (
-              <NewsList news={news} />
-            ) : (
-              <p>No news found.</p>
-            )}
+      {!isLoading && !error && (
+        <>
+          {news.length > 0 ? <NewsList news={news} /> : <p>No news found.</p>}
 
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-            />
-          </>
-        )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
+      )}
     </Container>
   );
 }

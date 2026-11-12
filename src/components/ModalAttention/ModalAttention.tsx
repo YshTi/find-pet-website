@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router';
 
 import Icon from '../Icon/Icon';
@@ -14,69 +15,115 @@ export default function ModalAttention({
   isOpen,
   onClose,
 }: ModalAttentionProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     if (!isOpen) return;
 
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    const previousFocus = document.activeElement as HTMLElement | null;
 
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+
+      if (event.key === 'Tab') {
+        const buttons = modalRef.current?.querySelectorAll<HTMLElement>(
+          'button:not(:disabled), a[href]',
+        );
+
+        if (!buttons?.length) return;
+
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
 
-    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleKeyDown);
+      previousFocus?.focus();
     };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div
       className={styles.overlay}
-      onMouseDown={event => {
+      onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose();
         }
       }}
     >
       <div
+        ref={modalRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="attention-title"
+        aria-describedby="attention-description"
         className={styles.modal}
       >
         <button
+          ref={closeButtonRef}
           type="button"
           className={styles.closeButton}
           onClick={onClose}
           aria-label="Close modal"
         >
-          <Icon name="icon-cross" />
+          <Icon name="icon-cross" className={styles.closeIcon} />
         </button>
 
-        <h2 id="attention-title">
+        <div className={styles.avatar}>
+          <img
+            src="/images/dog-icon.webp"
+            alt=""
+            className={styles.avatarImage}
+          />
+        </div>
+
+        <h2 id="attention-title" className={styles.title}>
           Attention
         </h2>
 
-        <p>
-          To use this functionality, you need to
-          authorize first.
+        <p id="attention-description" className={styles.description}>
+          We would like to remind you that certain functionality is available
+          only to authorized users. If you have an account, please log in with
+          your credentials. If you do not already have an account, you must
+          register to access these features.
         </p>
 
         <div className={styles.actions}>
-          <Link to="/register" onClick={onClose}>
-            Register
+          <Link to="/login" onClick={onClose} className={styles.loginButton}>
+            Log In
           </Link>
 
-          <Link to="/login" onClick={onClose}>
-            Login
+          <Link
+            to="/register"
+            onClick={onClose}
+            className={styles.registerButton}
+          >
+            Registration
           </Link>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

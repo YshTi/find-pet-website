@@ -2,18 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import Select from 'react-select';
 import type { SelectInstance } from 'react-select';
 
-import Dropdown, {
-  type DropdownOption,
-} from '../Dropdown/Dropdown';
+import Dropdown, { type DropdownOption } from '../Dropdown/Dropdown';
 import SearchField from '../SearchField/SearchField';
 import Icon from '../Icon/Icon';
 
 import { searchLocations } from '../../services/noticesApi';
 
-import type {
-  NoticeFilters,
-  LocationOption,
-} from '../../types/notices';
+import type { NoticeFilters, LocationOption } from '../../types/notices';
 
 import styles from './NoticesFilters.module.css';
 
@@ -35,11 +30,7 @@ interface SelectOption {
   label: string;
 }
 
-type LocationSearchStatus =
-  | 'idle'
-  | 'loading'
-  | 'success'
-  | 'error';
+type LocationSearchStatus = 'idle' | 'loading' | 'success' | 'error';
 
 interface LocationSearchState {
   keyword: string;
@@ -73,23 +64,23 @@ export default function NoticesFilters({
 }: NoticesFiltersProps) {
   const [citySearch, setCitySearch] = useState('');
 
-  const [selectedLocation, setSelectedLocation] =
-    useState<SelectOption | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<SelectOption | null>(
+    null,
+  );
 
-  const [locationSearch, setLocationSearch] =
-    useState<LocationSearchState>(initialLocationSearch);
+  const [locationSearch, setLocationSearch] = useState<LocationSearchState>(
+    initialLocationSearch,
+  );
 
   const [searchTrigger, setSearchTrigger] = useState(0);
 
-  const locationSelectRef =
-    useRef<SelectInstance<SelectOption, false>>(null);
+  const locationSelectRef = useRef<SelectInstance<SelectOption, false>>(null);
 
   const immediateSearchRef = useRef(false);
 
   const keyword = citySearch.trim();
 
-  const shouldSearchCities =
-    keyword.length >= MIN_LOCATION_SEARCH_LENGTH;
+  const shouldSearchCities = keyword.length >= MIN_LOCATION_SEARCH_LENGTH;
 
   const hasActiveFilters =
     filters.keyword.trim() !== '' ||
@@ -112,10 +103,7 @@ export default function NoticesFilters({
 
     const timeoutId = window.setTimeout(async () => {
       try {
-        const data = await searchLocations(
-          keyword,
-          controller.signal,
-        );
+        const data = await searchLocations(keyword, controller.signal);
 
         if (controller.signal.aborted) return;
 
@@ -127,10 +115,7 @@ export default function NoticesFilters({
       } catch (error) {
         if (controller.signal.aborted) return;
 
-        console.error(
-          'Failed to search locations:',
-          error,
-        );
+        console.error('Failed to search locations:', error);
 
         setLocationSearch({
           keyword,
@@ -160,7 +145,7 @@ export default function NoticesFilters({
   // Dropdown options from backend.
   const categoryOptions: DropdownOption[] = [
     { value: '', label: 'Category' },
-    ...options.categories.map(category => ({
+    ...options.categories.map((category) => ({
       value: category,
       label: formatLabel(category),
     })),
@@ -168,7 +153,7 @@ export default function NoticesFilters({
 
   const genderOptions: DropdownOption[] = [
     { value: '', label: 'By gender' },
-    ...options.sexes.map(sex => ({
+    ...options.sexes.map((sex) => ({
       value: sex,
       label: formatLabel(sex),
     })),
@@ -176,7 +161,7 @@ export default function NoticesFilters({
 
   const typeOptions: DropdownOption[] = [
     { value: '', label: 'By type' },
-    ...options.species.map(species => ({
+    ...options.species.map((species) => ({
       value: species,
       label: formatLabel(species),
     })),
@@ -194,13 +179,11 @@ export default function NoticesFilters({
     locationSearch.status === 'error';
 
   const isSearching =
-    shouldSearchCities &&
-    !hasCompletedSearch &&
-    !hasSearchError;
+    shouldSearchCities && !hasCompletedSearch && !hasSearchError;
 
   // Display results for the current keyword only.
   const locationOptions: SelectOption[] = hasCompletedSearch
-    ? locationSearch.results.map(location => ({
+    ? locationSearch.results.map((location) => ({
         value: location._id,
         label: `${location.cityEn}, ${location.stateEn}`,
       }))
@@ -228,9 +211,7 @@ export default function NoticesFilters({
   };
 
   // Select a location to filter notices.
-  const handleLocationChange = (
-    option: SelectOption | null,
-  ) => {
+  const handleLocationChange = (option: SelectOption | null) => {
     setSelectedLocation(option);
     setCitySearch('');
     setLocationSearch(initialLocationSearch);
@@ -266,7 +247,7 @@ export default function NoticesFilters({
 
     immediateSearchRef.current = true;
 
-    setSearchTrigger(previous => previous + 1);
+    setSearchTrigger((previous) => previous + 1);
   };
 
   // Reset all filters.
@@ -281,19 +262,14 @@ export default function NoticesFilters({
   };
 
   return (
-    <section
-      className={styles.filters}
-      aria-label="Notice filters"
-    >
+    <section className={styles.filters} aria-label="Notice filters">
       <div className={styles.fields}>
         {/* PET SEARCH */}
 
         <SearchField
           className={styles.searchPet}
           key={filters.keyword}
-          onSearch={value =>
-            updateFilter('keyword', value)
-          }
+          onSearch={(value) => updateFilter('keyword', value)}
         />
 
         {/* CATEGORY + GENDER */}
@@ -302,9 +278,7 @@ export default function NoticesFilters({
           <Dropdown
             options={categoryOptions}
             value={filters.category}
-            onChange={value =>
-              updateFilter('category', value)
-            }
+            onChange={(value) => updateFilter('category', value)}
             placeholder="Category"
             className={styles.filterDropdown}
             triggerClassName={styles.filterTrigger}
@@ -315,9 +289,7 @@ export default function NoticesFilters({
           <Dropdown
             options={genderOptions}
             value={filters.sex}
-            onChange={value =>
-              updateFilter('sex', value)
-            }
+            onChange={(value) => updateFilter('sex', value)}
             placeholder="By gender"
             className={styles.filterDropdown}
             triggerClassName={styles.filterTrigger}
@@ -331,9 +303,7 @@ export default function NoticesFilters({
         <Dropdown
           options={typeOptions}
           value={filters.species}
-          onChange={value =>
-            updateFilter('species', value)
-          }
+          onChange={(value) => updateFilter('species', value)}
           placeholder="By type"
           className={styles.filterDropdown}
           triggerClassName={styles.filterTrigger}
@@ -392,10 +362,7 @@ export default function NoticesFilters({
                 onClick={handleClearLocation}
                 aria-label="Clear location"
               >
-                <Icon
-                  name="icon-cross"
-                  className={styles.locationClearIcon}
-                />
+                <Icon name="icon-cross" className={styles.locationClearIcon} />
               </button>
             )}
 
@@ -405,10 +372,7 @@ export default function NoticesFilters({
               onClick={handleSearchLocation}
               aria-label="Search locations"
             >
-              <Icon
-                name="icon-search"
-                className={styles.locationSearchIcon}
-              />
+              <Icon name="icon-search" className={styles.locationSearchIcon} />
             </button>
           </div>
         </div>
@@ -417,14 +381,14 @@ export default function NoticesFilters({
       {/* SORT OPTIONS */}
 
       <div className={styles.sortOptions}>
-        {sortOptions.map(option => {
+        {sortOptions.map((option) => {
           const isActive = filters.sortBy === option.value;
 
           return (
             <label
               key={option.value}
               className={styles.radioLabel}
-              onClick={event => {
+              onClick={(event) => {
                 if (isActive) {
                   event.preventDefault();
                   updateFilter('sortBy', '');
@@ -436,9 +400,7 @@ export default function NoticesFilters({
                 name="noticeSort"
                 value={option.value}
                 checked={isActive}
-                onChange={() =>
-                  updateFilter('sortBy', option.value)
-                }
+                onChange={() => updateFilter('sortBy', option.value)}
                 className={styles.radio}
               />
 
@@ -446,10 +408,7 @@ export default function NoticesFilters({
                 {option.label}
 
                 {isActive && (
-                  <Icon
-                    name="icon-cross"
-                    className={styles.radioCross}
-                  />
+                  <Icon name="icon-cross" className={styles.radioCross} />
                 )}
               </span>
             </label>

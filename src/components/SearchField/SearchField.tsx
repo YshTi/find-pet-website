@@ -5,13 +5,13 @@ import Icon from '../Icon/Icon';
 import styles from './SearchField.module.css';
 
 interface SearchFieldProps {
-    onSearch: (keyword: string) => void;
-    className?: string;
+  onSearch: (keyword: string) => void;
+  className?: string;
 }
 
 export default function SearchField({
-    onSearch,
-    className = '',
+  onSearch,
+  className = '',
 }: SearchFieldProps) {
   const [value, setValue] = useState('');
 
@@ -34,7 +34,7 @@ export default function SearchField({
       <input
         type="search"
         value={value}
-        onChange={event => setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}
         placeholder="Search"
         aria-label="Search news"
         className={styles.input}

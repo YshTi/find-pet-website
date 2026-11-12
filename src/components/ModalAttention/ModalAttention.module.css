@@ -1,43 +1,178 @@
 .overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: var(--color-text-secondary);
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  background-color: rgba(38, 38, 38, 0.5);
 }
 
 .modal {
-    position: relative;
-    width: min(100%, 400px);
-    padding: 48px 24px 32px;
-    border-radius: 30px;
-    background: var(--color-white);
-    text-align: center;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 335px;
+  min-height: 394px;
+  padding: 40px 20px;
+
+  border-radius: 30px;
+  background-color: var(--color-white);
+
+  text-align: center;
 }
 
 .closeButton {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    border: none;
-    background: none;
-    cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+
+  cursor: pointer;
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 70px;
+  height: 70px;
+  margin-bottom: 20px;
+
+  border-radius: 50%;
+  background-color: var(--color-surface-accent);
+}
+
+.avatarImage {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.title {
+  margin: 0 0 20px;
+
+  color: var(--color-primary);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.description {
+  max-width: 295px;
+  margin: 0 0 24px;
+
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.29;
+  letter-spacing: -0.03em;
 }
 
 .actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: auto;
 }
 
-.actions a {
-    padding: 12px 24px;
-    border-radius: 30px;
-    background: var(--color-primary);
-    color: var(--color-white);
-    text-decoration: none;
+.loginButton,
+.registerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex: 1;
+  height: 42px;
+
+  border-radius: 30px;
+
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+
+  transition: background-color 200ms ease;
+}
+
+.loginButton {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.loginButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.registerButton {
+  background-color: var(--color-surface-accent);
+  color: var(--color-primary);
+}
+
+.registerButton:hover {
+  background-color: var(--color-surface-dark-accent);
+}
+
+.closeButton:focus-visible,
+.loginButton:focus-visible,
+.registerButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    max-width: 466px;
+    min-height: 434px;
+    padding: 60px 60px;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .avatarImage {
+    width: 48px;
+    height: 48px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .description {
+    max-width: 346px;
+  }
+
+  .loginButton,
+  .registerButton {
+    flex: 0 0 130px;
+    height: 48px;
+    font-size: 16px;
+  }
 }

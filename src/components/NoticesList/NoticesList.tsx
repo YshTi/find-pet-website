@@ -21,14 +21,12 @@ export default function NoticesList({
 }: NoticesListProps) {
   return (
     <ul className={styles.list}>
-      {notices.map(notice => (
+      {notices.map((notice) => (
         <li key={notice._id} className={styles.item}>
           <NoticesItem
             notice={notice}
             isFavorite={favoriteIds.includes(notice._id)}
-            isFavoriteLoading={
-              pendingFavoriteId === notice._id
-            }
+            isFavoriteLoading={pendingFavoriteId === notice._id}
             onLearnMore={onLearnMore}
             onFavorite={onFavorite}
           />

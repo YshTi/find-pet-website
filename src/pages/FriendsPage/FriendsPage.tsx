@@ -55,13 +55,13 @@ export default function FriendsPage() {
 
         {error && <p role="alert">{error}</p>}
 
-        {!isLoading && !error && (
-          friends.length > 0 ? (
+        {!isLoading &&
+          !error &&
+          (friends.length > 0 ? (
             <FriendsList friends={friends} />
           ) : (
             <p>No partners found.</p>
-          )
-        )}
+          ))}
       </Container>
     </main>
   );

@@ -8,12 +8,10 @@ interface FriendsListProps {
   friends: Friend[];
 }
 
-export default function FriendsList({
-  friends,
-}: FriendsListProps) {
+export default function FriendsList({ friends }: FriendsListProps) {
   return (
     <ul className={styles.list}>
-      {friends.map(friend => (
+      {friends.map((friend) => (
         <li key={friend._id} className={styles.item}>
           <FriendsItem friend={friend} />
         </li>

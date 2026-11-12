@@ -42,15 +42,10 @@ export default function NoticesItem({
 
       <div className={styles.content}>
         <div className={styles.heading}>
-          <h2 className={styles.title}>
-            {notice.title}
-          </h2>
+          <h2 className={styles.title}>{notice.title}</h2>
 
           <span className={styles.popularity}>
-            <Icon
-              name="icon-star"
-              className={styles.starIcon}
-            />
+            <Icon name="icon-star" className={styles.starIcon} />
             {notice.popularity}
           </span>
         </div>
@@ -82,9 +77,7 @@ export default function NoticesItem({
           </div>
         </dl>
 
-        <p className={styles.comment}>
-          {notice.comment}
-        </p>
+        <p className={styles.comment}>{notice.comment}</p>
 
         <div className={styles.actions}>
           <button
@@ -101,9 +94,7 @@ export default function NoticesItem({
             onClick={() => onFavorite(notice._id)}
             disabled={isFavoriteLoading}
             aria-label={
-              isFavorite
-                ? 'Remove from favorites'
-                : 'Add to favorites'
+              isFavorite ? 'Remove from favorites' : 'Add to favorites'
             }
             aria-pressed={isFavorite}
           >
