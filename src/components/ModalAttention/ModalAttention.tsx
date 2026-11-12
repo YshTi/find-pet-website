@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router';
 
+import Button from '../Button/Button';
 import Icon from '../Icon/Icon';
 
 import styles from './ModalAttention.module.css';
@@ -15,8 +15,16 @@ export default function ModalAttention({
   isOpen,
   onClose,
 }: ModalAttentionProps) {
+  const titleId = useId();
+  const descriptionId = useId();
+
   const modalRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -29,18 +37,19 @@ export default function ModalAttention({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        event.preventDefault();
+        onCloseRef.current();
       }
 
       if (event.key === 'Tab') {
-        const buttons = modalRef.current?.querySelectorAll<HTMLElement>(
+        const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
           'button:not(:disabled), a[href]',
         );
 
-        if (!buttons?.length) return;
+        if (!focusable?.length) return;
 
-        const first = buttons[0];
-        const last = buttons[buttons.length - 1];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
 
         if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
@@ -59,7 +68,7 @@ export default function ModalAttention({
       document.removeEventListener('keydown', handleKeyDown);
       previousFocus?.focus();
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -76,8 +85,8 @@ export default function ModalAttention({
         ref={modalRef}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="attention-title"
-        aria-describedby="attention-description"
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         className={styles.modal}
       >
         <button
@@ -98,11 +107,11 @@ export default function ModalAttention({
           />
         </div>
 
-        <h2 id="attention-title" className={styles.title}>
+        <h2 id={titleId} className={styles.title}>
           Attention
         </h2>
 
-        <p id="attention-description" className={styles.description}>
+        <p id={descriptionId} className={styles.description}>
           We would like to remind you that certain functionality is available
           only to authorized users. If you have an account, please log in with
           your credentials. If you do not already have an account, you must
@@ -110,17 +119,17 @@ export default function ModalAttention({
         </p>
 
         <div className={styles.actions}>
-          <Link to="/login" onClick={onClose} className={styles.loginButton}>
+          <Button to="/login" variant="primary" className={styles.loginButton}>
             Log In
-          </Link>
+          </Button>
 
-          <Link
+          <Button
             to="/register"
-            onClick={onClose}
+            variant="secondary"
             className={styles.registerButton}
           >
             Registration
-          </Link>
+          </Button>
         </div>
       </div>
     </div>,

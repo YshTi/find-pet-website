@@ -19,6 +19,23 @@ async function getJSON<T>(path: string, signal?: AbortSignal): Promise<T> {
   return (await response.json()) as T;
 }
 
+async function requestWithAuth(
+  path: string,
+  method: 'POST' | 'DELETE',
+  token: string,
+): Promise<void> {
+  const response = await fetch(`${BASE_URL}${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+}
+
 interface GetNoticesParams {
   filters: NoticeFilters;
   page: number;
@@ -57,8 +74,26 @@ export async function getNotices({
     params.set('locationId', filters.locationId);
   }
 
-  if (filters.sortBy) {
-    params.set('sortBy', filters.sortBy);
+  switch (filters.sortBy) {
+    case 'popular':
+      params.set('byPopularity', 'true');
+      break;
+
+    case 'unpopular':
+      params.set('byPopularity', 'false');
+      break;
+
+    case 'cheap':
+      params.set('byPrice', 'true');
+      break;
+
+    case 'expensive':
+      params.set('byPrice', 'false');
+      break;
+
+    default:
+      params.set('byDate', 'true');
+      break;
   }
 
   return getJSON<NoticesResponse>(`/notices?${params.toString()}`, signal);
@@ -92,4 +127,23 @@ export function searchLocations(
   });
 
   return getJSON<LocationOption[]>(`/cities?${params.toString()}`, signal);
+}
+
+export function addNoticeToFavorites(id: string, token: string): Promise<void> {
+  return requestWithAuth(
+    `/notices/favorites/add/${encodeURIComponent(id)}`,
+    'POST',
+    token,
+  );
+}
+
+export function removeNoticeFromFavorites(
+  id: string,
+  token: string,
+): Promise<void> {
+  return requestWithAuth(
+    `/notices/favorites/remove/${encodeURIComponent(id)}`,
+    'DELETE',
+    token,
+  );
 }

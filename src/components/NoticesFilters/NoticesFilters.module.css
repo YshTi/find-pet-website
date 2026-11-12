@@ -536,10 +536,9 @@
 
   .fields {
     display: grid;
-    grid-template-columns: minmax(0, 265fr) minmax(0, 200fr) minmax(
-        0,
-        190fr
-      ) minmax(0, 190fr) minmax(0, 227fr);
+    grid-template-columns:
+      minmax(0, 265fr) minmax(0, 200fr) minmax(0, 190fr)
+      minmax(0, 190fr) minmax(0, 227fr);
     gap: 16px;
     align-items: center;
   }

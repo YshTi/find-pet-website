@@ -144,7 +144,7 @@ export default function NoticesFilters({
 
   // Dropdown options from backend.
   const categoryOptions: DropdownOption[] = [
-    { value: '', label: 'Category' },
+    { value: '', label: 'Show all' },
     ...options.categories.map((category) => ({
       value: category,
       label: formatLabel(category),
@@ -152,7 +152,7 @@ export default function NoticesFilters({
   ];
 
   const genderOptions: DropdownOption[] = [
-    { value: '', label: 'By gender' },
+    { value: '', label: 'Show all' },
     ...options.sexes.map((sex) => ({
       value: sex,
       label: formatLabel(sex),
@@ -160,7 +160,7 @@ export default function NoticesFilters({
   ];
 
   const typeOptions: DropdownOption[] = [
-    { value: '', label: 'By type' },
+    { value: '', label: 'Show all' },
     ...options.species.map((species) => ({
       value: species,
       label: formatLabel(species),

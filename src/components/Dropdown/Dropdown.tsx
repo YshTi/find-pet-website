@@ -65,7 +65,9 @@ export default function Dropdown({
     startScrollTop: number;
   } | null>(null);
 
-  const selectedOption = options.find((option) => option.value === value);
+  const selectedOption = value
+    ? options.find((option) => option.value === value)
+    : undefined;
 
   const triggerClasses = [
     styles.trigger,
