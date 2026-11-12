@@ -19,6 +19,25 @@ async function getJSON<T>(path: string, signal?: AbortSignal): Promise<T> {
   return (await response.json()) as T;
 }
 
+async function getJSONWithAuth<T>(
+  path: string,
+  token: string,
+  signal?: AbortSignal,
+): Promise<T> {
+  const response = await fetch(`${BASE_URL}${path}`, {
+    signal,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`API error: ${response.status}`);
+  }
+
+  return (await response.json()) as T;
+}
+
 async function requestWithAuth(
   path: string,
   method: 'POST' | 'DELETE',
@@ -101,9 +120,14 @@ export async function getNotices({
 
 export function getNoticeById(
   id: string,
+  token: string,
   signal?: AbortSignal,
 ): Promise<Notice> {
-  return getJSON<Notice>(`/notices/${encodeURIComponent(id)}`, signal);
+  return getJSONWithAuth<Notice>(
+    `/notices/${encodeURIComponent(id)}`,
+    token,
+    signal,
+  );
 }
 
 export function getNoticeCategories(signal?: AbortSignal): Promise<string[]> {

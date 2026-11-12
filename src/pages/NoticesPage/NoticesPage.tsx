@@ -380,7 +380,12 @@ export default function NoticesPage() {
       setIsDetailsLoading(true);
       setSelectedNotice(null);
 
-      const notice = await getNoticeById(id);
+      if (!token) {
+        setIsAttentionOpen(true);
+        return;
+      }
+
+      const notice = await getNoticeById(id, token);
 
       setSelectedNotice(notice);
     } catch (error) {
